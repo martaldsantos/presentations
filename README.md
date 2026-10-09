@@ -36,6 +36,8 @@ GitHub Pages is public. Only commit materials approved for public sharing, with 
 
 ## Present the AI Gateway deck
 
+The deck uses the editorial design system in `.github/copilot-instructions.md`: neutral surfaces, Segoe UI typography, one blue accent, ruled idea groups rather than cards, and a 16:9 canvas fitted between the presentation controls. Narrow screens use a stacked reading layout, including a readable equivalent of the architecture diagram.
+
 The first 14 slides are a 30-minute presentation. Pacing: opening and session contract (2 minutes), APIM fundamentals (5), two paths and selection (5), dedicated-tier runtime/policies/preview (6), and architecture/PoC design (12). At `#schedule`, switch to the standalone gateway portal and begin the live deployment. The additional hands-on plan is a suggested 110 minutes, excluding breaks.
 
 Core PoC: prerequisites, dedicated-tier creation, model onboarding, app runtime keys, first model call, policy enforcement, telemetry and an approved MCP tool. Backend pools and semantic caching are optional **standard APIM** extensions, not promised capabilities of the dedicated preview tier. No second APIM instance is deployed by the core path.

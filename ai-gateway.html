@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#174e48">
+  <meta name="theme-color" content="#f7f7f5">
   <meta name="description" content="AI Gateway in Practice: a customer-neutral web presentation on governed model access, consumption controls, resilience, caching, observability and MCP tools.">
   <title>AI Gateway in Practice | Marta Santos</title>
   <link rel="stylesheet" href="assets/ai-gateway.css">
@@ -208,6 +208,11 @@
           </g>
           <g text-anchor="middle" font-family="system-ui, sans-serif"><text x="490" y="105" font-size="29" fill="#c9f36b">AI GATEWAY</text><text x="490" y="149" font-size="22" fill="white">Identity + policies</text><text x="490" y="188" font-size="22" fill="white">Routing + telemetry</text><text x="490" y="230" font-size="17" fill="#d8e6da">Provider credentials stay here</text></g>
         </svg>
+        <div class="architecture-mobile">
+          <p>Applications + agents<br>&darr; Gateway endpoint</p>
+          <p class="gateway-boundary"><strong>AI gateway</strong><br>Identity + policies<br>Routing + telemetry<br>Provider credentials stay here</p>
+          <p>&darr; Approved backends<br>Primary model deployment<br>Secondary model deployment<br>Approved MCP tools / APIs</p>
+        </div>
       </div>
       <p class="takeaway">The application endpoint stays stable while platform configuration evolves.</p>
       <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> This is a logical architecture, not a guarantee that every capability is available in every tier. Assess model, gateway, cache and telemetry locations as one data path. Tools need their own authorisation and approval process.</aside>
