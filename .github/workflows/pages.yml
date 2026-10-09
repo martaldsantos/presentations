@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -25,8 +25,7 @@ jobs:
       - name: Package site
         run: |
           mkdir -p _site
-          cp index.html _site/
-          cp -R "apim presentation" _site/
+          git archive --format=tar HEAD | tar -x -C _site --exclude='.github' --exclude='README.md'
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
