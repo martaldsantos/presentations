@@ -249,6 +249,24 @@
       <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Contributor alone does not necessarily allow role assignments on model resources. Confirm the necessary permissions with the resource owner. A Foundry account import selects all deployments in each chosen account, not just one model; use a dedicated lab account and inspect the imported inventory. If a prerequisite fails, resolve it before deployment rather than bypassing the control.</aside>
     </section>
 
+    <section class="slide" id="poc-create-list" aria-labelledby="create-list-heading" tabindex="-1">
+      <div class="eyebrow">Part 2 / Exactly what to create</div>
+      <h2 id="create-list-heading">Pre-create five things.<br>Create four live.</h2>
+      <div class="split">
+        <div>
+          <h3>Before the session</h3>
+          <ol class="tasks"><li><strong>Resource group</strong> for the lab, tagged with owner and expiry.</li><li><strong>Foundry account + one chat model deployment</strong> with quota, in a dedicated lab account.</li><li><strong>Backend credential:</strong> provider key in an approved secret store, or managed identity with a role.</li><li><strong>Application Insights</strong> (or approved OpenTelemetry destination).</li><li><strong>Safe tool backend:</strong> remote MCP server or OpenAPI definition with synthetic data.</li></ol>
+        </div>
+        <div>
+          <h3>Live in the portal</h3>
+          <ol class="tasks"><li><strong>AI Gateway</strong> instance; copy the runtime endpoint.</li><li><strong>Runtime keys</strong> for app-a and app-b.</li><li><strong>Rate-limit policy</strong> counted by caller identity.</li><li><strong>MCP server</strong> publishing one approved tool.</li></ol>
+          <p class="small">Locally: <a href="ai-gateway-lab.ipynb">ai-gateway-lab.ipynb</a> drives every validation.</p>
+        </div>
+      </div>
+      <p class="takeaway">Delete the resource group at the end to clean up everything.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Everything in the left column should exist and be verified before the session. The notebook asks for the gateway base URL, model name, two runtime keys and the tool endpoint, and keeps secrets out of the file by prompting for them. Do not commit an executed notebook with outputs.</aside>
+    </section>
+
     <section class="slide" id="deploy-tier" aria-labelledby="deploy-heading" tabindex="-1">
       <div class="eyebrow">Part 2 / Create the dedicated tier</div>
       <h2 id="deploy-heading">Standalone portal.<br>One new gateway resource.</h2>
