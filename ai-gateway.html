@@ -4,8 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f1f3ee">
-  <meta name="description" content="AI Gateway in Practice: governing, optimising and scaling AI at public workshop. A hands-on workshop by Marta Santos.">
+  <meta name="description" content="Explore AI gateway architecture, consumption controls, resilience, semantic caching, observability and governed MCP tools in an interactive workshop.">
   <title>AI Gateway in Practice — Marta Santos</title>
+  <link rel="stylesheet" href="assets/ai-gateway.css">
+  <script src="assets/ai-gateway.js" defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
@@ -222,26 +224,6 @@
 
     .section-note { margin: 0; color: var(--muted); font-size: 13px; }
 
-    .pdf-frame {
-      display: block;
-      width: 100%;
-      height: min(78vh, 900px);
-      min-height: 580px;
-      border: 1px solid var(--line);
-      background: #dce3de;
-    }
-
-    .deck-caption {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 11px 0 0;
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 10px;
-      text-transform: uppercase;
-    }
-
     .labs {
       margin-top: 68px;
       padding-block: 42px 52px;
@@ -299,8 +281,6 @@
       .fact + .fact { padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
       .section-head, .labs-intro { align-items: start; flex-direction: column; }
       .section-head { padding-top: 42px; }
-      .pdf-frame { height: 72svh; min-height: 470px; }
-      .deck-caption { flex-direction: column; gap: 6px; }
       .labs { margin-top: 48px; padding-top: 34px; }
       .lab-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
       .lab { min-height: 100px; padding: 14px; }
@@ -313,6 +293,7 @@
   </style>
 </head>
 <body>
+  <a class="skip" href="#top">Skip to content</a>
   <header class="topbar wrap">
     <a class="wordmark" href="./" aria-label="Marta Santos presentations home">
       <span class="mark" aria-hidden="true">MS</span>
@@ -324,61 +305,168 @@
   <main id="top" class="wrap">
     <section class="hero" aria-labelledby="presentation-title">
       <div>
-        <div class="eyebrow">Featured workshop &nbsp;·&nbsp; 13 October 2026</div>
+        <div class="eyebrow">Interactive workshop &nbsp;·&nbsp; Self-paced</div>
         <h1 id="presentation-title">AI Gateway<br><span>in Practice</span></h1>
-        <p class="dek">Governing, optimising and scaling AI at public workshop. A hands-on workshop on Azure API Management’s AI Gateway tier.</p>
+        <p class="dek">Govern, optimise and scale AI. Explore how one gateway becomes the operating boundary for applications, models and agent tools.</p>
         <div class="actions">
-          <a class="action" href="apim%20presentation/public workshop_AI_Gateway_HandsOn_Workshop%201.pdf" target="_blank" rel="noreferrer">Open presentation</a>
-          <a class="action secondary" href="apim%20presentation/public workshop_AI_Gateway_HandsOn_Workshop%201.pdf" download>Download PDF</a>
+          <a class="action" href="#flow">Explore the request flow</a>
+          <a class="action secondary" href="#labs">Start the labs</a>
         </div>
       </div>
       <aside class="edition" aria-label="Presentation details">
-        <span class="micro-label">public workshop / AI platform</span>
+        <span class="micro-label">One governed boundary</span>
         <div>
-          <div class="edition-number">16</div>
-          <p>slides on turning AI access into a governed operating boundary.</p>
+          <div class="edition-number">06</div>
+          <p>labs that turn AI access into practical governance decisions.</p>
         </div>
-        <span class="micro-label">Hands-on workshop &nbsp;·&nbsp; Preview</span>
+        <span class="micro-label">Learn &nbsp;·&nbsp; Experiment &nbsp;·&nbsp; Decide</span>
       </aside>
     </section>
 
     <section class="facts" aria-label="Workshop details">
-      <div class="fact"><span class="micro-label">Format</span><strong>Three-hour hands-on session</strong></div>
-      <div class="fact"><span class="micro-label">Platform</span><strong>Azure API Management AI Gateway</strong></div>
+      <div class="fact"><span class="micro-label">Format</span><strong>Self-paced or three-hour guided session</strong></div>
+      <div class="fact"><span class="micro-label">Platform</span><strong>Azure API Management</strong></div>
       <div class="fact"><span class="micro-label">Focus</span><strong>Governance, cost, resilience, visibility</strong></div>
     </section>
 
-    <section id="deck" aria-labelledby="deck-title">
+    <nav class="section-nav" aria-label="Workshop sections">
+      <a href="#why">Why a gateway?</a><a href="#flow">Request flow</a><a href="#labs">Six labs</a><a href="#guardrails">Pilot guardrails</a><a href="#canvas">Decision canvas</a>
+    </nav>
+
+    <section id="why" aria-labelledby="why-title">
       <div class="section-head">
-        <div>
-          <div class="eyebrow">The presentation</div>
-          <h2 id="deck-title" style="margin-top: 10px">Read the deck</h2>
-        </div>
-        <p class="section-note">The complete 16-page workshop deck, embedded below.</p>
+        <h2 id="why-title">From scattered access to shared control</h2>
       </div>
-      <iframe class="pdf-frame" title="AI Gateway in Practice workshop presentation PDF" src="apim%20presentation/public workshop_AI_Gateway_HandsOn_Workshop%201.pdf#view=FitH" loading="lazy"></iframe>
-      <div class="deck-caption">
-        <span>AI Gateway in Practice · public workshop hands-on workshop</span>
-        <span>PDF · 16 pages</span>
+      <p class="body-copy">Direct integrations leave each application responsible for provider credentials, backend availability and usage controls. A gateway separates application logic from platform operations: applications integrate once; platform teams manage access, policies, models and tools centrally.</p>
+      <div class="topic-grid">
+        <article><h3>Cost + accountability</h3><p>Combine quotas, caching and workload attribution to understand consumption and avoid unnecessary calls.</p></article>
+        <article><h3>Capacity + continuity</h3><p>Use multiple deployments, routing strategies and fallback without changing the application's endpoint.</p></article>
+        <article><h3>Central governance</h3><p>Keep provider credentials behind the gateway and apply common access and lifecycle controls.</p></article>
+        <article><h3>Observable operations</h3><p>Measure tokens, latency and outcomes before changing limits or architecture.</p></article>
+        <article><h3>Approved agent tools</h3><p>Expose a deliberate set of API operations through governed MCP endpoints.</p></article>
+        <article><h3>One operating model</h3><p>Connect identity, policy, routing and telemetry rather than treating them as isolated features.</p></article>
       </div>
     </section>
 
-    <section class="labs" aria-labelledby="labs-title">
+    <section id="flow" aria-labelledby="flow-title">
+      <div class="section-head"><h2 id="flow-title">Follow a request</h2><p class="section-note">Select a step to explore its responsibility.</p></div>
+      <p class="body-copy">Application &rarr; AI gateway (identity + policies + routing + telemetry) &rarr; model deployment or approved tool. Model names and tool names become routing choices rather than hard-coded provider endpoints.</p>
+      <div class="flow-steps" aria-label="Request lifecycle">
+        <button type="button" data-step="call" aria-pressed="true">01 / Call gateway</button>
+        <button type="button" data-step="authenticate" aria-pressed="false">02 / Authenticate</button>
+        <button type="button" data-step="policy" aria-pressed="false">03 / Evaluate policy</button>
+        <button type="button" data-step="route" aria-pressed="false">04 / Route</button>
+        <button type="button" data-step="observe" aria-pressed="false">05 / Observe</button>
+      </div>
+      <div class="flow-detail" aria-live="polite" aria-atomic="true">
+        <h3 id="flow-heading">One endpoint, one integration</h3>
+        <p id="flow-description">The application calls the gateway instead of a provider directly. Backend credentials remain with the platform, not in application code.</p>
+      </div>
+      <noscript><p>Authenticate the caller, evaluate guardrails, route to an approved model or tool, then record usage and latency. Enable JavaScript to explore individual steps and simulations; the labs below remain readable without it.</p></noscript>
+    </section>
+
+    <section id="labs" class="labs" aria-labelledby="labs-title">
       <div class="labs-intro">
         <div>
           <div class="eyebrow">Workshop outline</div>
           <h2 id="labs-title" style="margin-top: 10px">Six labs, one operating model</h2>
         </div>
-        <p>Move from centralised access to practical governance decisions, with each lab grounded in an operational problem.</p>
+        <p>Expand a lab for tasks and success criteria. Use your own approved lab environment; the examples on this page make no Azure calls.</p>
       </div>
-      <div class="lab-list">
-        <article class="lab"><span class="micro-label">01 / Centralise</span><h3>Put the gateway in control</h3></article>
-        <article class="lab"><span class="micro-label">02 / Control</span><h3>Manage AI consumption</h3></article>
-        <article class="lab"><span class="micro-label">03 / Resilience</span><h3>Route across deployments</h3></article>
-        <article class="lab"><span class="micro-label">04 / Optimise</span><h3>Use semantic caching</h3></article>
-        <article class="lab"><span class="micro-label">05 / Observe</span><h3>Make token use visible</h3></article>
-        <article class="lab"><span class="micro-label">06 / Govern</span><h3>Publish approved MCP tools</h3></article>
+      <div class="progress-row"><label for="lab-progress">Your exploration progress</label><span id="progress-label" role="status">0 of 6 labs complete</span></div>
+      <progress id="lab-progress" value="0" max="6">0 of 6</progress>
+      <p class="section-note">Completion is self-assessed and stays in this page session only.</p>
+      <div class="workshop-labs">
+        <details open>
+          <summary><span class="micro-label">01 / Centralise / 30 min</span>Put the gateway in control</summary>
+          <div class="lab-content">
+            <p>Replace direct model access with a governed endpoint. Before: application &rarr; provider endpoint and credential. After: application &rarr; gateway &rarr; model, with the provider credential held by the platform.</p>
+            <ol><li>Add a Foundry or custom model to your approved gateway configuration.</li><li>Create a runtime access key or configure the authentication method supported by your deployment.</li><li>Call the model through the gateway endpoint.</li><li>Confirm that the application does not handle provider credentials.</li></ol>
+            <p class="success"><strong>Success:</strong> the same model response arrives through a new governed path.</p>
+            <label class="complete"><input type="checkbox" data-complete> I validated governed model access</label>
+          </div>
+        </details>
+        <details>
+          <summary><span class="micro-label">02 / Control / 30 min</span>Manage AI consumption</summary>
+          <div class="lab-content">
+            <p>Apply token and request guardrails by consumer. Use a trusted application identity as the counter key; a caller-controlled label alone is not an access boundary.</p>
+            <ol><li>Identify the consumer and decide whether limits belong to an application, user, workload or environment.</li><li>Configure a small token-throughput limit that is easy to trigger.</li><li>Generate repeated requests as app-a and inspect the enforced policy and response.</li><li>Repeat as app-b and confirm an independent counter. Check the actual status codes for your chosen policy.</li></ol>
+            <div class="simulation">
+              <h3>Try independent consumer counters</h3>
+              <p>Illustrative simulation: a fixed 100-token session budget per application, with 40 tokens per request. This is not a real rate window or an Azure response.</p>
+              <div class="simulation-actions"><button type="button" data-consumer="app-a">Send as app-a</button><button type="button" data-consumer="app-b">Send as app-b</button><button type="button" id="reset-budget">Reset counters</button></div>
+              <p id="budget-state">app-a: 0 / 100 tokens | app-b: 0 / 100 tokens</p>
+              <p id="budget-result" role="status">Choose an application to send a simulated request.</p>
+            </div>
+            <p class="success"><strong>Success:</strong> one consumer reaching its limit does not consume another consumer's allowance.</p>
+            <label class="complete"><input type="checkbox" data-complete> I validated independent consumption limits</label>
+          </div>
+        </details>
+        <details>
+          <summary><span class="micro-label">03 / Resilience / 30 min</span>Route across deployments</summary>
+          <div class="lab-content">
+            <p>Keep the client endpoint stable while backend capacity or availability changes. A pool can combine a preferred deployment with alternate capacity; circuit-breaker and routing behaviour depend on the selected configuration.</p>
+            <ol><li>Create two approved model backends.</li><li>Build a backend pool and route the API to it.</li><li>Choose round-robin, weighted or priority-based routing based on the workload.</li><li>Simulate a backend failure in a noncritical environment.</li><li>Inspect routing outcomes, errors and recovery without changing the application URL.</li></ol>
+            <p class="success"><strong>Success:</strong> observed behaviour matches the intended fallback strategy. Consider retry safety, regional requirements and remaining capacity.</p>
+            <label class="complete"><input type="checkbox" data-complete> I validated backend routing and recovery</label>
+          </div>
+        </details>
+        <details>
+          <summary><span class="micro-label">04 / Optimise / 25 min</span>Use semantic caching</summary>
+          <div class="lab-content">
+            <p>For appropriate repeatable prompts, look up a cached response using embeddings and similarity. A hit returns a cached result; a miss calls the model and can store the response.</p>
+            <ol><li>Baseline two similar prompts without caching.</li><li>Configure cache lookup and response storage where supported.</li><li>Compare latency and backend-call counts on hits and misses.</li><li>Discuss similarity threshold, time-to-live and partitioning by consumer or context.</li></ol>
+            <p class="caution"><strong>Guardrail:</strong> similarity does not guarantee correctness. Cached responses can be stale, unsafe or wrong for a different user or context. Do not share sensitive results across access boundaries.</p>
+            <p class="success"><strong>Success:</strong> suitable repeated intent avoids a backend call without violating freshness, quality or isolation requirements.</p>
+            <label class="complete"><input type="checkbox" data-complete> I evaluated cache quality and isolation</label>
+          </div>
+        </details>
+        <details>
+          <summary><span class="micro-label">05 / Observe / 25 min</span>Make token use visible</summary>
+          <div class="lab-content">
+            <p>Connect telemetry to workload accountability. Measure prompt, completion and total tokens alongside latency and request outcomes. Attribute usage to application, environment and workload.</p>
+            <ol><li>Enable supported gateway telemetry and configure its destination.</li><li>Generate successful and policy-rejected requests.</li><li>Inspect token metrics, latency, outcomes and consumer dimensions.</li><li>Use the evidence to propose changes to quotas, architecture or cache policy.</li></ol>
+            <p class="caution">Review logging configuration before capturing traffic. Prompts, responses and tool payloads may contain sensitive information.</p>
+            <p class="success"><strong>Success:</strong> you can explain who consumed capacity and which control should change. Measure &rarr; understand &rarr; define policy &rarr; enforce &rarr; measure again.</p>
+            <label class="complete"><input type="checkbox" data-complete> I connected telemetry to an operating decision</label>
+          </div>
+        </details>
+        <details>
+          <summary><span class="micro-label">06 / Govern / Extension</span>Publish approved MCP tools</summary>
+          <div class="lab-content">
+            <p>Expose only approved operations through a controlled Model Context Protocol (MCP) endpoint. Tool availability should reflect a deliberate approval and ownership process.</p>
+            <ol><li>Select one managed REST API and identify safe operations to expose.</li><li>Create an MCP server using the selected operations where supported.</li><li>Connect an MCP client, list the tools and invoke an approved operation.</li><li>Inspect tool-call telemetry and discuss payload sensitivity.</li></ol>
+            <p class="success"><strong>Success:</strong> the client sees only the intended tools, access is controlled, and each tool has an owner and lifecycle plan.</p>
+            <label class="complete"><input type="checkbox" data-complete> I reviewed governed tool access</label>
+          </div>
+        </details>
       </div>
+      <details class="schedule"><summary>Planning a guided session?</summary><p>Prepare and validate the environment before the session. Suggested three-hour core path: context and validation (20 min), lab 1 (30 min), lab 2 (30 min), break (10 min), lab 3 (30 min), lab 4 (25 min), lab 5 (25 min), wrap-up (10 min). Schedule the MCP extension separately if more time is needed.</p></details>
+    </section>
+
+    <section id="guardrails" aria-labelledby="guardrails-title">
+      <div class="section-head"><h2 id="guardrails-title">A pilot, not a production promise</h2></div>
+      <p class="body-copy">Treat the dedicated AI Gateway tier and any preview capabilities as evaluation topics. Feature availability, APIs, regions, pricing, networking and service guarantees can change. Validate current support for your tier before provisioning or adopting any lab.</p>
+      <div class="topic-grid">
+        <article><h3>Verify current support</h3><p>Check preview status, regional availability, limits and SLA terms. Do not assume a feature in one API Management tier exists in another.</p></article>
+        <article><h3>Follow the whole data path</h3><p>Assess gateway, model, cache and telemetry locations together. Gateway location alone does not establish data residency.</p></article>
+        <article><h3>Start with a safe pilot</h3><p>Choose a noncritical workload, confirm network and identity requirements, define success measures and keep a rollback plan.</p></article>
+      </div>
+      <p class="body-copy"><a href="https://learn.microsoft.com/azure/api-management/ai-gateway-overview">Check current Microsoft AI gateway documentation &rarr;</a></p>
+    </section>
+
+    <section id="canvas" class="canvas" aria-labelledby="canvas-title">
+      <div class="section-head"><h2 id="canvas-title">Your operating-model decision canvas</h2></div>
+      <p class="body-copy">Use the labs to define a prioritised pilot backlog with owners, success measures and unresolved decisions. Notes are temporary: they are not saved or submitted and will be lost when you leave or reload this page. Do not enter sensitive information.</p>
+      <div class="canvas-grid">
+        <label for="identity">Identity<textarea id="identity" placeholder="What identifies a consumer: application, user, workload or environment?"></textarea></label>
+        <label for="consumption">Consumption<textarea id="consumption" placeholder="Where should token and request limits be applied?"></textarea></label>
+        <label for="capacity">Capacity<textarea id="capacity" placeholder="What happens when the preferred deployment cannot respond?"></textarea></label>
+        <label for="accountability">Accountability<textarea id="accountability" placeholder="Which dimensions support useful showback or chargeback?"></textarea></label>
+        <label for="tools">Tools<textarea id="tools" placeholder="Who approves tools and owns their lifecycle?"></textarea></label>
+        <label for="pilot">Pilot<textarea id="pilot" placeholder="Which noncritical workload, owner and success measures come first?"></textarea></label>
+      </div>
+      <p class="closing">The gateway is not the destination.<br><strong>It is the operating boundary.</strong></p>
     </section>
   </main>
 

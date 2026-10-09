@@ -25,7 +25,12 @@ jobs:
       - name: Package site
         run: |
           mkdir -p _site
-          git archive --format=tar HEAD | tar -x -C _site --exclude='.github' --exclude='README.md'
+          while IFS= read -r -d '' file; do
+            case "$file" in
+              .github/*) continue ;;
+            esac
+            cp --parents "$file" _site/
+          done < <(git ls-files -z -- '*.html' '*.css' '*.js' '*.svg' '*.png' '*.jpg' '*.jpeg' '*.webp' '*.woff' '*.woff2')
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
