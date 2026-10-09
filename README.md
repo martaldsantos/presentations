@@ -29,7 +29,7 @@ GitHub Pages is public. Only commit materials approved for public sharing, with 
 ## Add a presentation
 
 1. Create customer-neutral HTML content in a descriptive folder, such as `presentations/my-talk/`. Adapt approved source material into web content; do not commit customer source decks.
-2. Use `ai-gateway.html` as an example of a slide-style web presentation with a 30-minute briefing, live deployment instructions, PoC checks and speaker notes. Its styles and navigation live in `assets/ai-gateway.css` and `assets/ai-gateway.js`.
+2. Use `ai-gateway.html` as an example of a self-paced slide-style web presentation with live deployment instructions, PoC checks and speaker notes. Its styles and navigation live in `assets/ai-gateway.css` and `assets/ai-gateway.js`.
 3. In `index.html`, duplicate the `<article class="presentation">` inside `.collection`. Update its title, description, topics, session details and links. Give its heading a unique ID and use the same ID in `aria-labelledby`. The homepage uses the same editorial palette and typography as the deck, with styles in `assets/library.css`; update its version parameter in `index.html` when changing that stylesheet.
 4. Use relative links (not paths starting with `/`) so they work under the `/presentations/` GitHub Pages URL. Encode spaces in URLs as `%20`.
 5. Preview locally, commit the new files and push to `main`.
@@ -40,7 +40,7 @@ The deck uses the editorial design system in `.github/copilot-instructions.md`: 
 
 The deck's stylesheet and script URLs include version parameters to avoid stale browser assets after deployment. Update the corresponding parameter in `ai-gateway.html` whenever that asset changes; changing only the page URL does not refresh cached CSS or JavaScript.
 
-The first 14 slides are a 30-minute presentation. Pacing: opening and session contract (2 minutes), APIM fundamentals (5), two paths and selection (5), dedicated-tier runtime/policies/preview (6), and architecture/PoC design (12). At `#schedule`, switch to the standalone gateway portal and begin the live deployment. The additional hands-on plan is a suggested 110 minutes, excluding breaks.
+The first 14 slides introduce APIM fundamentals, the two gateway paths, dedicated-tier runtime/policies/preview, and architecture/PoC design. At `#schedule`, switch to the standalone gateway portal and begin the live deployment when ready. The introduction and hands-on steps are self-paced, with no fixed agenda times or lab durations. Complete each validation before continuing; technical policy windows and preview dates remain unchanged.
 
 Core PoC: prerequisites, dedicated-tier creation, model onboarding, app runtime keys, first model call, policy enforcement, telemetry and an approved MCP tool. Backend pools and semantic caching are optional **standard APIM** extensions, not promised capabilities of the dedicated preview tier. No second APIM instance is deployed by the core path.
 

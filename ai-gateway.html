@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f7f7f5">
   <meta name="description" content="AI Gateway in Practice: a customer-neutral web presentation on governed model access, consumption controls, resilience, caching, observability and MCP tools.">
   <title>AI Gateway in Practice | Marta Santos</title>
-  <link rel="stylesheet" href="assets/ai-gateway.css?v=editorial-20261009">
+  <link rel="stylesheet" href="assets/ai-gateway.css?v=self-paced-20261009">
   <script src="assets/ai-gateway.js?v=briefing-20261009" defer></script>
 </head>
 <body>
@@ -23,24 +23,24 @@
       <h1 id="title-heading">AI Gateway<br><span>in Practice</span></h1>
       <p class="subtitle">Govern, optimise and scale AI.<br>One operating boundary for applications, models and tools.</p>
       <p class="author">Marta Santos</p>
-      <p class="hint">30-minute presentation &middot; Then deploy the AI Gateway tier and validate a PoC</p>
+      <p class="hint">Self-paced presentation &middot; Then deploy the AI Gateway tier and validate a PoC</p>
       <p class="hint">Arrows / Space to advance &middot; F for fullscreen &middot; N for notes</p>
       <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Introduce the gateway as an operating model, not just another endpoint. Use arrow keys, Space or the navigation buttons to advance. Swipe on touch screens. Press F for fullscreen and N for notes.</aside>
     </section>
 
     <section class="slide" id="session-plan" aria-labelledby="session-heading" tabindex="-1">
-      <div class="eyebrow">Part 1 / 00:00&ndash;00:02 / Session contract</div>
+      <div class="eyebrow">Part 1 / Session overview</div>
       <h2 id="session-heading">First understand the options.<br>Then build the dedicated tier.</h2>
       <div class="comparison">
-        <article class="card"><span class="number">First / 30 minutes</span><h3>Presentation + architecture</h3><p>API Management fundamentals, two AI gateway paths, the dedicated tier's runtime and preview constraints.</p></article>
+        <article class="card"><span class="number">First / Understand</span><h3>Presentation + architecture</h3><p>API Management fundamentals, two AI gateway paths, the dedicated tier's runtime and preview constraints.</p></article>
         <article class="card accent-card"><span class="number">Then / Hands-on</span><h3>Deploy + prove the controls</h3><p>Create a gateway, onboard a model, issue keys, enforce limits, inspect telemetry and add an approved MCP tool.</p></article>
       </div>
       <p class="takeaway">We deploy the dedicated AI Gateway tier, not an existing general-purpose APIM instance.</p>
-      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Use the title and this slide for the first two minutes. The presentation ends at the hands-on transition slide. PoC duration is additional, not part of the 30-minute briefing. Model resources and permissions must be ready; the gateway itself will be created live. Standard APIM extensions are optional and are not prerequisites.</aside>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Follow the session at the audience's pace. The introduction ends at the hands-on transition slide. Model resources and permissions must be ready; the gateway itself will be created live. Standard APIM extensions are optional and are not prerequisites.</aside>
     </section>
 
     <section class="slide" id="apim-basics" aria-labelledby="apim-heading" tabindex="-1">
-      <div class="eyebrow">Part 1 / 00:02&ndash;00:07 / API Management fundamentals</div>
+      <div class="eyebrow">Part 1 / API Management fundamentals</div>
       <h2 id="apim-heading">API Management is more<br>than a reverse proxy.</h2>
       <div class="grid grid-3">
         <article class="card"><span class="number">Runtime</span><h3>API gateway</h3><p>Accept requests, validate credentials, route to backends, transform traffic, throttle and emit telemetry.</p></article>
@@ -49,7 +49,7 @@
       </div>
       <p class="takeaway">Clients &rarr; managed API gateway &rarr; REST services, legacy backends or AI endpoints.</p>
       <p class="source"><a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-key-concepts" target="_blank" rel="noreferrer">Source: API Management overview and key concepts &nearr;</a></p>
-      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Spend five minutes across this slide and the next. Separate the data plane from the configuration plane. General-purpose APIM handles API lifecycle and mediation across heterogeneous backends. Products group APIs for consumers; subscriptions provide access keys, while JWT validation and other policies can enforce identity. Do not promise all features in every tier.</aside>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Separate the data plane from the configuration plane. General-purpose APIM handles API lifecycle and mediation across heterogeneous backends. Products group APIs for consumers; subscriptions provide access keys, while JWT validation and other policies can enforce identity. Do not promise all features in every tier.</aside>
     </section>
 
     <section class="slide" id="apim-ai-capabilities" aria-labelledby="apim-ai-heading" tabindex="-1">
@@ -66,7 +66,7 @@
     </section>
 
     <section class="slide" id="two-paths" aria-labelledby="paths-heading" tabindex="-1">
-      <div class="eyebrow">Part 1 / 00:07&ndash;00:12 / Two related but different paths</div>
+      <div class="eyebrow">Part 1 / Two related but different paths</div>
       <h2 id="paths-heading">Same governance goal.<br>Different setup and policy models.</h2>
       <div class="comparison">
         <article class="card"><span class="number">General-purpose APIM</span><h3>An API platform with AI capabilities</h3><p>Configure APIs, operations and XML policies in the existing APIM management experience.</p><p>Choose capacity and features through the service tier.</p></article>
@@ -74,7 +74,7 @@
       </div>
       <p class="takeaway">Do not copy an APIM XML policy into the dedicated tier and expect it to work.</p>
       <p class="source"><a href="https://learn.microsoft.com/en-us/azure/api-management/ai-gateway-overview" target="_blank" rel="noreferrer">Source: dedicated AI Gateway tier overview &nearr;</a></p>
-      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Spend five minutes across this slide and the next. The dedicated tier is a dedicated resource in your subscription, not just a switch on an existing APIM API. Portal cards map to structured policy objects rather than XML expressions. Its preview workflow and guarantees differ from established APIM tiers.</aside>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> The dedicated tier is a dedicated resource in your subscription, not just a switch on an existing APIM API. Portal cards map to structured policy objects rather than XML expressions. Its preview workflow and guarantees differ from established APIM tiers.</aside>
     </section>
 
     <section class="slide" id="choose-path" aria-labelledby="choice-heading" tabindex="-1">
@@ -90,7 +90,7 @@
     </section>
 
     <section class="slide" id="tier-runtime" aria-labelledby="runtime-heading" tabindex="-1">
-      <div class="eyebrow">Part 1 / 00:12&ndash;00:18 / Dedicated-tier essentials</div>
+      <div class="eyebrow">Part 1 / Dedicated-tier essentials</div>
       <h2 id="runtime-heading">Three identities.<br>Do not confuse their credentials.</h2>
       <div class="grid grid-3">
         <article class="card"><span class="number">Administrator</span><h3>Microsoft Entra ID</h3><p>Sign in at ai.gateway.azure.com and manage resources using your permissions.</p></article>
@@ -98,7 +98,7 @@
         <article class="card"><span class="number">Gateway to backend</span><h3>Managed identity or provider key</h3><p>Configure backend authentication at the gateway. Applications do not receive provider credentials.</p></article>
       </div>
       <p class="callout warning">Preview runtime keys are gateway-scoped: every key reaches all published models and tools. Separate keys do not create per-asset permissions.</p>
-      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Spend six minutes across runtime, policy and preview slides. Explain that management-plane Entra sign-in is not application runtime authentication. The overview documents gateway-scoped keys with no per-asset scoping yet. Use a gateway isolation boundary appropriate to the pilot and treat all runtime keys as secrets.</aside>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Explain that management-plane Entra sign-in is not application runtime authentication. The overview documents gateway-scoped keys with no per-asset scoping yet. Use a gateway isolation boundary appropriate to the pilot and treat all runtime keys as secrets.</aside>
     </section>
 
     <section class="slide" id="tier-policies" aria-labelledby="policies-heading" tabindex="-1">
@@ -128,7 +128,7 @@
     </section>
 
     <section class="slide" id="journey" aria-labelledby="journey-heading" tabindex="-1">
-      <div class="eyebrow">Part 1 / 00:18&ndash;00:30 / Architecture + PoC design</div>
+      <div class="eyebrow">Part 1 / Architecture + PoC design</div>
       <h2 id="journey-heading">One governed boundary.<br>Six practical steps.</h2>
       <div class="grid grid-3">
         <article class="card"><span class="number">01</span><h3>Centralise</h3><p>Route applications through one gateway endpoint.</p></article>
@@ -138,7 +138,7 @@
         <article class="card"><span class="number">05</span><h3>Observe</h3><p>Measure tokens, latency and consumer behaviour.</p></article>
         <article class="card"><span class="number">06</span><h3>Govern tools</h3><p>Publish approved MCP tools for agents.</p></article>
       </div>
-      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Use the next five slides for the remaining twelve briefing minutes: this map (2), operational problems (2), operating model (2), request flow (3) and architecture (3). Core dedicated-tier validation covers model access, limits, telemetry and an approved MCP tool. Backend pools and semantic caching are separately labelled standard APIM extensions, not dedicated-tier guarantees. This deck makes no Azure calls.</aside>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Connect the operating problems to the request flow and architecture. Core dedicated-tier validation covers model access, limits, telemetry and an approved MCP tool. Backend pools and semantic caching are separately labelled standard APIM extensions, not dedicated-tier guarantees. This deck makes no Azure calls.</aside>
     </section>
 
     <section class="slide" id="why-gateway" aria-labelledby="why-heading" tabindex="-1">
@@ -219,20 +219,20 @@
     </section>
 
     <section class="slide" id="schedule" aria-labelledby="schedule-heading" tabindex="-1">
-      <div class="eyebrow">Part 2 / The 30-minute presentation ends here</div>
+      <div class="eyebrow">Part 2 / From presentation to hands-on</div>
       <h2 id="schedule-heading">Now we deploy.<br>Then we prove the PoC.</h2>
       <div class="split">
-        <ol class="timeline">
-          <li><span>+00:00</span>Validate prerequisites + deploy <small>30 min</small></li>
-          <li><span>+00:30</span>Validate governed model access <small>15 min</small></li>
-          <li><span>+00:45</span>Enforce policy + isolate counters <small>20 min</small></li>
-          <li><span>+01:05</span>Inspect token telemetry <small>15 min</small></li>
-          <li><span>+01:20</span>Publish one approved MCP tool <small>20 min</small></li>
-          <li><span>+01:40</span>Accept PoC + cleanup decisions <small>10 min</small></li>
+        <ol class="session-steps">
+          <li><span>01</span>Validate prerequisites + deploy</li>
+          <li><span>02</span>Validate governed model access</li>
+          <li><span>03</span>Enforce policy + isolate counters</li>
+          <li><span>04</span>Inspect token telemetry</li>
+          <li><span>05</span>Publish one approved MCP tool</li>
+          <li><span>06</span>Accept PoC + cleanup decisions</li>
         </ol>
-        <div class="statement"><h3>Create the gateway live.</h3><p>Prepare model capacity and permissions beforehand. Deploy and configure the gateway together.</p><p class="small">Suggested hands-on plan: 110 minutes additional to the briefing, excluding breaks and optional APIM extensions.</p></div>
+        <div class="statement"><h3>Create the gateway live.</h3><p>Prepare model capacity and permissions beforehand. Deploy and configure the gateway together.</p><p class="small">Move through each step at your own pace. Complete its validation before continuing.</p></div>
       </div>
-      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Stop presentation mode here and switch to the standalone AI Gateway tier portal. Timings are facilitation estimates, not provisioning guarantees. Adjust for audience and access readiness. Only the gateway is created live; pre-existing model deployments, credentials, required roles, a safe tool backend and telemetry access should already be approved.</aside>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Switch to the standalone AI Gateway tier portal when ready. Adjust for audience and access readiness. Only the gateway is created live; pre-existing model deployments, credentials, required roles, a safe tool backend and telemetry access should already be approved.</aside>
     </section>
 
     <section class="slide" id="poc-prerequisites" aria-labelledby="prerequisites-heading" tabindex="-1">
@@ -253,7 +253,7 @@
       <div class="eyebrow">Part 2 / Create the dedicated tier</div>
       <h2 id="deploy-heading">Standalone portal.<br>One new gateway resource.</h2>
       <ol class="tasks"><li>Sign in to <a href="https://ai.gateway.azure.com" target="_blank" rel="noreferrer">ai.gateway.azure.com</a> using Microsoft Entra ID.</li><li>Select <strong>Create gateway</strong>; choose name, subscription and supported preview region.</li><li>Set the resource group under <strong>Advanced</strong> if needed; select <strong>Create</strong>.</li><li>Wait for activation and record the exact runtime endpoint from the overview.</li></ol>
-      <p class="takeaway">Typical activation: under a minute. End-to-end quickstart: about 20&ndash;30 minutes, when prerequisites are ready.</p>
+      <p class="takeaway">Continue when the gateway is active and the runtime endpoint is available.</p>
       <p class="source"><a href="https://learn.microsoft.com/en-us/azure/api-management/quickstart-ai-gateway-create" target="_blank" rel="noreferrer">Source: create an AI Gateway tier instance &nearr;</a></p>
       <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> This is the dedicated tier's standalone portal, not the Azure portal's standard APIM API import workflow. Regions documented on 9 October 2026 are East US 2 and Sweden Central. No scale units are chosen. For approved automation, the documented management API version is 2026-05-01-preview; runtime calls use the gateway hostname, not Azure Resource Manager. Do not provision actual Azure resources from this public website.</aside>
     </section>
@@ -283,7 +283,7 @@ Invoke-RestMethod -Method Post `
     </section>
 
     <section class="slide" id="lab-1" aria-labelledby="lab-1-heading" tabindex="-1">
-      <div class="eyebrow">Core PoC / Lab 1 / Governed access / 15 minutes</div>
+      <div class="eyebrow">Core PoC / Lab 1 / Governed access</div>
       <h2 id="lab-1-heading">Put the gateway in control.</h2>
       <div class="comparison">
         <div class="card"><span class="number">Before</span><p>Application &rarr; provider &rarr; model</p><p class="small">The application handles provider endpoints and credentials.</p></div>
@@ -295,7 +295,7 @@ Invoke-RestMethod -Method Post `
     </section>
 
     <section class="slide" id="lab-2" aria-labelledby="lab-2-heading" tabindex="-1">
-      <div class="eyebrow">Core PoC / Lab 2 / Policy enforcement / 20 minutes</div>
+      <div class="eyebrow">Core PoC / Lab 2 / Policy enforcement</div>
       <h2 id="lab-2-heading">Control consumption<br>by consumer.</h2>
       <div class="split">
         <ol class="tasks"><li>Create separate runtime keys for app-a and app-b.</li><li>Use <strong>Policies / Add policy</strong>; select a model and a small request or token limit.</li><li>Count by <strong>caller identity</strong>; send requests with app-a until blocked.</li><li>Repeat with app-b's key and inspect its independent allowance.</li></ol>
@@ -306,7 +306,7 @@ Invoke-RestMethod -Method Post `
     </section>
 
     <section class="slide" id="lab-5" aria-labelledby="lab-5-heading" tabindex="-1">
-      <div class="eyebrow">Core PoC / Lab 5 / Telemetry / 15 minutes</div>
+      <div class="eyebrow">Core PoC / Lab 5 / Telemetry</div>
       <h2 id="lab-5-heading">Make consumption visible.<br>Then make decisions.</h2>
       <div class="grid grid-3">
         <article class="card"><span class="number">Measure</span><h3>Tokens + performance</h3><p>Prompt, completion and total tokens. Latency and request outcomes.</p></article>
@@ -319,7 +319,7 @@ Invoke-RestMethod -Method Post `
     </section>
 
     <section class="slide" id="lab-6" aria-labelledby="lab-6-heading" tabindex="-1">
-      <div class="eyebrow">Core PoC / Lab 6 / Approved MCP tool / 20 minutes</div>
+      <div class="eyebrow">Core PoC / Lab 6 / Approved MCP tool</div>
       <h2 id="lab-6-heading">Give agents approved tools.<br>Not unrestricted APIs.</h2>
       <ol class="tasks large-tasks"><li><strong>Choose a safe source.</strong> Use an approved remote MCP server or OpenAPI definition.</li><li><strong>Create the MCP server.</strong> Configure backend authentication and review its tool inventory.</li><li><strong>Connect an MCP client.</strong> Use the gateway's toolserver endpoint and runtime key; list tools and call one.</li><li><strong>Inspect telemetry.</strong> Validate the allowed operation and inspect policy and tool-call outcomes.</li></ol>
       <p class="takeaway">Success: controlled access, a deliberate tool inventory, and clear ownership.</p>
@@ -327,7 +327,7 @@ Invoke-RestMethod -Method Post `
     </section>
 
     <section class="slide" id="poc-acceptance" aria-labelledby="acceptance-heading" tabindex="-1">
-      <div class="eyebrow">Part 2 / Evidence + closeout / 10 minutes</div>
+      <div class="eyebrow">Part 2 / Evidence + closeout</div>
       <h2 id="acceptance-heading">A successful PoC has evidence.<br>Not just a working demo.</h2>
       <div class="grid grid-3">
         <article class="card"><h3>Governed access</h3><p>A real model call succeeds via the gateway. An invalid runtime key is rejected. No provider key is in the client.</p></article>
