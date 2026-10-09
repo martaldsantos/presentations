@@ -41,6 +41,9 @@ p { line-height: 1.55; }
 .hint, .small { color: var(--muted); font-size: 15px; }
 .grid { display: grid; gap: 16px; }
 .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+code { font-family: ui-monospace, Consolas, monospace; }
+pre { padding: 20px; background: var(--deep); color: #f1f3ee; font-size: clamp(14px, 1.4vw, 19px); line-height: 1.6; overflow-x: auto; }
 .card { border: 1px solid var(--line); padding: clamp(16px, 2vw, 24px); background: #fafbf7; }
 .card p { font-size: clamp(16px, 1.45vw, 20px); margin: 10px 0 0; }
 .number { font: 13px monospace; text-transform: uppercase; letter-spacing: 0.05em; color: var(--deep); }
@@ -103,7 +106,7 @@ select { max-width: 240px; }
   .topbar { height: 64px; padding-inline: 16px; }
   .wordmark { font-size: 11px; gap: 8px; }
   .back { font-size: 11px; }
-  .grid-3, .split, .comparison, .flow, .route-flow { grid-template-columns: 1fr; }
+  .grid-3, .grid-2, .split, .comparison, .flow, .route-flow { grid-template-columns: 1fr; }
   .slide { padding: 28px 20px; }
   .title-slide { padding-top: 40px; }
   .flow { margin-block: 24px; }

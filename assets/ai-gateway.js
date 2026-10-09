@@ -127,7 +127,7 @@ document.addEventListener("keydown", (event) => {
 
 const deck = document.getElementById("deck");
 deck.addEventListener("click", (event) => {
-  if (event.target.closest("a, button, select, input, textarea, .speaker-notes") ||
+  if (event.target.closest("a, button, select, input, textarea, pre, .speaker-notes") ||
       window.getSelection().toString()) return;
   goTo(current + 1, true);
 });
@@ -143,7 +143,7 @@ deck.addEventListener("touchend", (event) => {
   const dx = event.changedTouches[0].clientX - touchStart.x;
   const dy = event.changedTouches[0].clientY - touchStart.y;
   touchStart = null;
-  if (event.target.closest("a, button, select, input, textarea, .diagram, .speaker-notes")) return;
+  if (event.target.closest("a, button, select, input, textarea, pre, .diagram, .speaker-notes")) return;
   if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
     goTo(current + (dx < 0 ? 1 : -1), true);
   }

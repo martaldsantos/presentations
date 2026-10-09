@@ -19,27 +19,126 @@
     <noscript><p class="no-script">JavaScript is off: all slides are shown below in reading order. Enable it for slide navigation.</p></noscript>
 
     <section class="slide title-slide" id="title" aria-labelledby="title-heading" tabindex="-1">
-      <div class="eyebrow">Azure API Management / Hands-on workshop</div>
+      <div class="eyebrow">Azure API Management / Briefing + live PoC</div>
       <h1 id="title-heading">AI Gateway<br><span>in Practice</span></h1>
       <p class="subtitle">Govern, optimise and scale AI.<br>One operating boundary for applications, models and tools.</p>
       <p class="author">Marta Santos</p>
-      <p class="hint">16 slides &middot; Six labs &middot; Customer-neutral</p>
+      <p class="hint">30-minute presentation &middot; Then deploy the AI Gateway tier and validate a PoC</p>
       <p class="hint">Arrows / Space to advance &middot; F for fullscreen &middot; N for notes</p>
       <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Introduce the gateway as an operating model, not just another endpoint. Use arrow keys, Space or the navigation buttons to advance. Swipe on touch screens. Press F for fullscreen and N for notes.</aside>
     </section>
 
+    <section class="slide" id="session-plan" aria-labelledby="session-heading" tabindex="-1">
+      <div class="eyebrow">Part 1 / 00:00&ndash;00:02 / Session contract</div>
+      <h2 id="session-heading">First understand the options.<br>Then build the dedicated tier.</h2>
+      <div class="comparison">
+        <article class="card"><span class="number">First / 30 minutes</span><h3>Presentation + architecture</h3><p>API Management fundamentals, two AI gateway paths, the dedicated tier's runtime and preview constraints.</p></article>
+        <article class="card accent-card"><span class="number">Then / Hands-on</span><h3>Deploy + prove the controls</h3><p>Create a gateway, onboard a model, issue keys, enforce limits, inspect telemetry and add an approved MCP tool.</p></article>
+      </div>
+      <p class="takeaway">We deploy the dedicated AI Gateway tier, not an existing general-purpose APIM instance.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Use the title and this slide for the first two minutes. The presentation ends at the hands-on transition slide. PoC duration is additional, not part of the 30-minute briefing. Model resources and permissions must be ready; the gateway itself will be created live. Standard APIM extensions are optional and are not prerequisites.</aside>
+    </section>
+
+    <section class="slide" id="apim-basics" aria-labelledby="apim-heading" tabindex="-1">
+      <div class="eyebrow">Part 1 / 00:02&ndash;00:07 / API Management fundamentals</div>
+      <h2 id="apim-heading">API Management is more<br>than a reverse proxy.</h2>
+      <div class="grid grid-3">
+        <article class="card"><span class="number">Runtime</span><h3>API gateway</h3><p>Accept requests, validate credentials, route to backends, transform traffic, throttle and emit telemetry.</p></article>
+        <article class="card"><span class="number">Configuration</span><h3>Management plane</h3><p>Publish APIs and operations; manage policies, products, subscriptions and API lifecycle.</p></article>
+        <article class="card"><span class="number">Discovery</span><h3>Developer portal</h3><p>Help consumers discover APIs, read documentation and obtain access. Availability varies by tier.</p></article>
+      </div>
+      <p class="takeaway">Clients &rarr; managed API gateway &rarr; REST services, legacy backends or AI endpoints.</p>
+      <p class="source"><a href="https://learn.microsoft.com/en-us/azure/api-management/api-management-key-concepts" target="_blank" rel="noreferrer">Source: API Management overview and key concepts &nearr;</a></p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Spend five minutes across this slide and the next. Separate the data plane from the configuration plane. General-purpose APIM handles API lifecycle and mediation across heterogeneous backends. Products group APIs for consumers; subscriptions provide access keys, while JWT validation and other policies can enforce identity. Do not promise all features in every tier.</aside>
+    </section>
+
+    <section class="slide" id="apim-ai-capabilities" aria-labelledby="apim-ai-heading" tabindex="-1">
+      <div class="eyebrow">Part 1 / API Management fundamentals continued</div>
+      <h2 id="apim-ai-heading">Existing API Management<br>can govern AI traffic too.</h2>
+      <div class="grid grid-3">
+        <article class="card"><h3>Import AI APIs</h3><p>Publish supported language-model APIs, MCP endpoints and agent APIs alongside existing services.</p></article>
+        <article class="card"><h3>Apply API policies</h3><p>Use XML policies for identity, token limits, transformations and telemetry. Import wizards simplify setup.</p></article>
+        <article class="card"><h3>Extend the platform</h3><p>Supported configurations provide backend pools, circuit breakers and semantic caching with an external cache.</p></article>
+      </div>
+      <p class="takeaway">AI gateway capabilities extend the existing APIM gateway; they are not the dedicated AI Gateway tier.</p>
+      <p class="source"><a href="https://learn.microsoft.com/en-us/azure/api-management/genai-gateway-capabilities" target="_blank" rel="noreferrer">Source: AI gateway capabilities in API Management &nearr;</a></p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> AI gateway is also a capability name in established APIM tiers. Capability availability varies by tier, protocol and policy. Existing APIM includes a unified model API in preview; that alone does not make the instance the dedicated tier. Semantic caching requires an embeddings endpoint and an external compatible cache such as Azure Managed Redis with RediSearch support.</aside>
+    </section>
+
+    <section class="slide" id="two-paths" aria-labelledby="paths-heading" tabindex="-1">
+      <div class="eyebrow">Part 1 / 00:07&ndash;00:12 / Two related but different paths</div>
+      <h2 id="paths-heading">Same governance goal.<br>Different setup and policy models.</h2>
+      <div class="comparison">
+        <article class="card"><span class="number">General-purpose APIM</span><h3>An API platform with AI capabilities</h3><p>Configure APIs, operations and XML policies in the existing APIM management experience.</p><p>Choose capacity and features through the service tier.</p></article>
+        <article class="card accent-card"><span class="number">Dedicated AI Gateway tier / Preview</span><h3>A model-and-tool-first experience</h3><p>Use a standalone portal, model catalog, runtime keys and visual policy cards.</p><p>No scale units to plan before onboarding models.</p></article>
+      </div>
+      <p class="takeaway">Do not copy an APIM XML policy into the dedicated tier and expect it to work.</p>
+      <p class="source"><a href="https://learn.microsoft.com/en-us/azure/api-management/ai-gateway-overview" target="_blank" rel="noreferrer">Source: dedicated AI Gateway tier overview &nearr;</a></p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Spend five minutes across this slide and the next. The dedicated tier is a dedicated resource in your subscription, not just a switch on an existing APIM API. Portal cards map to structured policy objects rather than XML expressions. Its preview workflow and guarantees differ from established APIM tiers.</aside>
+    </section>
+
+    <section class="slide" id="choose-path" aria-labelledby="choice-heading" tabindex="-1">
+      <div class="eyebrow">Part 1 / Choosing the right starting point</div>
+      <h2 id="choice-heading">Choose for your operating needs.<br>Not just the product name.</h2>
+      <div class="grid grid-3">
+        <article class="card"><h3>Extend existing APIM</h3><p>Consider this for broader API lifecycle, existing platform controls or tier-supported XML policies and extensions.</p></article>
+        <article class="card accent-card"><h3>Try the dedicated tier</h3><p>Consider a fast model/tool-focused pilot when its supported controls and preview terms meet your needs.</p></article>
+        <article class="card"><h3>Keep direct calls simple</h3><p>A single app and model without central governance needs may not require another gateway.</p></article>
+      </div>
+      <p class="takeaway">Today: a noncritical dedicated-tier PoC. Resilience pools and semantic caching remain standard APIM extensions.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> This is a decision guide, not a claim of feature parity or a universal migration recommendation. Evaluate authentication, isolation, networking, telemetry, guarantees and operational ownership. We are not deploying a second general-purpose APIM instance today.</aside>
+    </section>
+
+    <section class="slide" id="tier-runtime" aria-labelledby="runtime-heading" tabindex="-1">
+      <div class="eyebrow">Part 1 / 00:12&ndash;00:18 / Dedicated-tier essentials</div>
+      <h2 id="runtime-heading">Three identities.<br>Do not confuse their credentials.</h2>
+      <div class="grid grid-3">
+        <article class="card"><span class="number">Administrator</span><h3>Microsoft Entra ID</h3><p>Sign in at ai.gateway.azure.com and manage resources using your permissions.</p></article>
+        <article class="card"><span class="number">Application</span><h3>Runtime access key</h3><p>Send the gateway key in the <code>api-key</code> header. Issue a separate key per app and environment.</p></article>
+        <article class="card"><span class="number">Gateway to backend</span><h3>Managed identity or provider key</h3><p>Configure backend authentication at the gateway. Applications do not receive provider credentials.</p></article>
+      </div>
+      <p class="callout warning">Preview runtime keys are gateway-scoped: every key reaches all published models and tools. Separate keys do not create per-asset permissions.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Spend six minutes across runtime, policy and preview slides. Explain that management-plane Entra sign-in is not application runtime authentication. The overview documents gateway-scoped keys with no per-asset scoping yet. Use a gateway isolation boundary appropriate to the pilot and treat all runtime keys as secrets.</aside>
+    </section>
+
+    <section class="slide" id="tier-policies" aria-labelledby="policies-heading" tabindex="-1">
+      <div class="eyebrow">Part 1 / Dedicated-tier controls</div>
+      <h2 id="policies-heading">Choose a policy card.<br>Select assets. Configure. Enforce.</h2>
+      <div class="grid grid-2">
+        <article class="card"><h3>Token rate limit / Models</h3><p>Control token throughput using supported windows and counting dimensions. A blocked call returns 429.</p></article>
+        <article class="card"><h3>Request rate limit / Models + tools</h3><p>Control request volume per caller identity or IP address. A blocked call returns 429.</p></article>
+        <article class="card"><h3>IP filter / Models + tools</h3><p>Allow or deny client network ranges. A blocked call returns 403.</p></article>
+        <article class="card"><h3>Content safety / Models + tools</h3><p>Configure safety checks with an Azure AI Content Safety resource. A blocked call returns 400.</p></article>
+      </div>
+      <p class="source"><a href="https://learn.microsoft.com/en-us/azure/api-management/ai-gateway-govern-secure-assets" target="_blank" rel="noreferrer">Source: policy scope, enforcement and runtime keys &nearr;</a></p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Policies are configured with Type, Assets and Configure steps; no XML is required. Every applicable policy must allow the request. The governance guide describes token counting windows and dimensions; use the options actually available in the preview portal. Limits are operating controls, not authoritative billing. Honour Retry-After on 429 responses. Content safety needs its own resource and calibration, so it is optional in this PoC.</aside>
+    </section>
+
+    <section class="slide" id="tier-preview" aria-labelledby="preview-heading" tabindex="-1">
+      <div class="eyebrow">Part 1 / Preview constraints / Documentation checked 9 October 2026</div>
+      <h2 id="preview-heading">A fast pilot.<br>With explicit boundaries.</h2>
+      <div class="grid grid-3">
+        <article class="card"><h3>Where</h3><p>Documented preview regions: East US 2 and Sweden Central. Subscription access and capacity can vary.</p></article>
+        <article class="card"><h3>Guarantees + cost</h3><p>Public preview has no SLA. Gateway pricing will be announced; models and related resources may incur charges.</p></article>
+        <article class="card"><h3>Networking + data</h3><p>Private Link and outbound VNet integration are in preview. Assess the entire backend and telemetry data path.</p></article>
+      </div>
+      <p class="takeaway">Use approved synthetic prompts, a noncritical workload, a spend boundary and a rollback plan.</p>
+      <p class="source"><a href="https://learn.microsoft.com/en-us/azure/api-management/ai-gateway-overview" target="_blank" rel="noreferrer">Source: preview availability, pricing and guarantees &nearr;</a></p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> These are a dated documentation snapshot, not enduring promises. Recheck before running the session. Do not call preview free: related resources can charge and the gateway business model is not yet announced. Configure private networking as a separate prerequisite if the pilot requires it; do not improvise DNS or network changes during the basic deployment.</aside>
+    </section>
+
     <section class="slide" id="journey" aria-labelledby="journey-heading" tabindex="-1">
-      <div class="eyebrow">What we will build together</div>
+      <div class="eyebrow">Part 1 / 00:18&ndash;00:30 / Architecture + PoC design</div>
       <h2 id="journey-heading">One governed boundary.<br>Six practical steps.</h2>
       <div class="grid grid-3">
         <article class="card"><span class="number">01</span><h3>Centralise</h3><p>Route applications through one gateway endpoint.</p></article>
         <article class="card"><span class="number">02</span><h3>Control</h3><p>Apply access, token and request guardrails.</p></article>
-        <article class="card"><span class="number">03</span><h3>Resilience</h3><p>Separate application logic from backend availability.</p></article>
-        <article class="card"><span class="number">04</span><h3>Optimise</h3><p>Reduce avoidable calls and use capacity intelligently.</p></article>
+        <article class="card"><span class="number">03 / APIM extension</span><h3>Resilience</h3><p>Discuss backend pools in a supported standard APIM tier.</p></article>
+        <article class="card"><span class="number">04 / APIM extension</span><h3>Optimise</h3><p>Discuss semantic caching in a supported standard APIM tier.</p></article>
         <article class="card"><span class="number">05</span><h3>Observe</h3><p>Measure tokens, latency and consumer behaviour.</p></article>
         <article class="card"><span class="number">06</span><h3>Govern tools</h3><p>Publish approved MCP tools for agents.</p></article>
       </div>
-      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Each lab should answer an operational problem. The core session covers labs 1 to 5; MCP is an extension. This deck makes no Azure calls.</aside>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Use the next five slides for the remaining twelve briefing minutes: this map (2), operational problems (2), operating model (2), request flow (3) and architecture (3). Core dedicated-tier validation covers model access, limits, telemetry and an approved MCP tool. Backend pools and semantic caching are separately labelled standard APIM extensions, not dedicated-tier guarantees. This deck makes no Azure calls.</aside>
     </section>
 
     <section class="slide" id="why-gateway" aria-labelledby="why-heading" tabindex="-1">
@@ -84,7 +183,7 @@
         <li><span class="number">05</span><h3>Observe</h3><p>Tokens + latency + outcomes</p></li>
       </ol>
       <p class="takeaway">Applications integrate once. Platform teams manage keys, policies, models and tools.</p>
-      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Walk through the lifecycle in order. The dedicated tier's runtime-key model and other authentication methods depend on the actual deployment. Do not rely on an untrusted caller-supplied label for access control.</aside>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Dedicated tier: validate api-key, evaluate policies for the target asset, select a model by exact model name or a tool by name, call the backend with gateway-held credentials, return the response and emit telemetry. Do not rely on an untrusted caller-supplied label for access control.</aside>
     </section>
 
     <section class="slide" id="architecture" aria-labelledby="architecture-heading" tabindex="-1">
@@ -115,26 +214,71 @@
     </section>
 
     <section class="slide" id="schedule" aria-labelledby="schedule-heading" tabindex="-1">
-      <div class="eyebrow">Hands-on journey</div>
-      <h2 id="schedule-heading">Three-hour core path.<br>MCP as an extension.</h2>
+      <div class="eyebrow">Part 2 / The 30-minute presentation ends here</div>
+      <h2 id="schedule-heading">Now we deploy.<br>Then we prove the PoC.</h2>
       <div class="split">
         <ol class="timeline">
-          <li><span>00:00</span>Context + environment validation <small>20 min</small></li>
-          <li><span>00:20</span>Lab 1 / Governed access <small>30 min</small></li>
-          <li><span>00:50</span>Lab 2 / Consumption controls <small>30 min</small></li>
-          <li><span>01:20</span>Break <small>10 min</small></li>
-          <li><span>01:30</span>Lab 3 / Backend resilience <small>30 min</small></li>
-          <li><span>02:00</span>Lab 4 / Semantic caching <small>25 min</small></li>
-          <li><span>02:25</span>Lab 5 / Token observability <small>25 min</small></li>
-          <li><span>02:50</span>Wrap-up + pilot decisions <small>10 min</small></li>
+          <li><span>+00:00</span>Validate prerequisites + deploy <small>30 min</small></li>
+          <li><span>+00:30</span>Validate governed model access <small>15 min</small></li>
+          <li><span>+00:45</span>Enforce policy + isolate counters <small>20 min</small></li>
+          <li><span>+01:05</span>Inspect token telemetry <small>15 min</small></li>
+          <li><span>+01:20</span>Publish one approved MCP tool <small>20 min</small></li>
+          <li><span>+01:40</span>Accept PoC + cleanup decisions <small>10 min</small></li>
         </ol>
-        <div class="statement"><h3>Keep provisioning<br>out of the room.</h3><p>Validate the environment, permissions and capability support before starting.</p><p class="small">Schedule the MCP extension separately when more time is needed.</p></div>
+        <div class="statement"><h3>Create the gateway live.</h3><p>Prepare model capacity and permissions beforehand. Deploy and configure the gateway together.</p><p class="small">Suggested hands-on plan: 110 minutes additional to the briefing, excluding breaks and optional APIM extensions.</p></div>
       </div>
-      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> This is a suggested run of show. Prepare two model backends, a safe API, runtime authentication and a telemetry destination. Use approved noncritical lab resources.</aside>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Stop presentation mode here and switch to the standalone AI Gateway tier portal. Timings are facilitation estimates, not provisioning guarantees. Adjust for audience and access readiness. Only the gateway is created live; pre-existing model deployments, credentials, required roles, a safe tool backend and telemetry access should already be approved.</aside>
+    </section>
+
+    <section class="slide" id="poc-prerequisites" aria-labelledby="prerequisites-heading" tabindex="-1">
+      <div class="eyebrow">Part 2 / Deployment checklist</div>
+      <h2 id="prerequisites-heading">Before clicking Create,<br>check access and capacity.</h2>
+      <div class="grid grid-3">
+        <article class="card"><h3>Azure + Entra</h3><p>Entra sign-in, subscription access and resource-group creation rights, such as Contributor.</p></article>
+        <article class="card"><h3>Approved model</h3><p>A deployed supported chat model with usable capacity. Use a dedicated lab account if importing from Foundry.</p></article>
+        <article class="card"><h3>Backend authentication</h3><p>Provider key or managed identity. Role assignment rights are needed for managed-identity onboarding.</p></article>
+        <article class="card"><h3>Client + secrets</h3><p>PowerShell, curl or an OpenAI SDK. Keep real keys out of slides, repositories and screen recordings.</p></article>
+        <article class="card"><h3>Telemetry + tools</h3><p>An approved telemetry destination and safe OpenAPI or remote MCP backend for the tool exercise.</p></article>
+        <article class="card"><h3>Scope + cost</h3><p>Approved region, synthetic inputs, spend boundary, owner and cleanup plan. Check preview access.</p></article>
+      </div>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Contributor alone does not necessarily allow role assignments on model resources. Confirm the necessary permissions with the resource owner. A Foundry account import selects all deployments in each chosen account, not just one model; use a dedicated lab account and inspect the imported inventory. If a prerequisite fails, resolve it before deployment rather than bypassing the control.</aside>
+    </section>
+
+    <section class="slide" id="deploy-tier" aria-labelledby="deploy-heading" tabindex="-1">
+      <div class="eyebrow">Part 2 / Create the dedicated tier</div>
+      <h2 id="deploy-heading">Standalone portal.<br>One new gateway resource.</h2>
+      <ol class="tasks"><li>Sign in to <a href="https://ai.gateway.azure.com" target="_blank" rel="noreferrer">ai.gateway.azure.com</a> using Microsoft Entra ID.</li><li>Select <strong>Create gateway</strong>; choose name, subscription and supported preview region.</li><li>Set the resource group under <strong>Advanced</strong> if needed; select <strong>Create</strong>.</li><li>Wait for activation and record the exact runtime endpoint from the overview.</li></ol>
+      <p class="takeaway">Typical activation: under a minute. End-to-end quickstart: about 20&ndash;30 minutes, when prerequisites are ready.</p>
+      <p class="source"><a href="https://learn.microsoft.com/en-us/azure/api-management/quickstart-ai-gateway-create" target="_blank" rel="noreferrer">Source: create an AI Gateway tier instance &nearr;</a></p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> This is the dedicated tier's standalone portal, not the Azure portal's standard APIM API import workflow. Regions documented on 9 October 2026 are East US 2 and Sweden Central. No scale units are chosen. For approved automation, the documented management API version is 2026-05-01-preview; runtime calls use the gateway hostname, not Azure Resource Manager. Do not provision actual Azure resources from this public website.</aside>
+    </section>
+
+    <section class="slide" id="onboard-model" aria-labelledby="onboard-heading" tabindex="-1">
+      <div class="eyebrow">Part 2 / Models + runtime keys</div>
+      <h2 id="onboard-heading">Register the model.<br>Give the application a gateway key.</h2>
+      <ol class="tasks"><li>Use <strong>Configure your gateway / Get started</strong> to discover Foundry accounts, or add a custom model.</li><li>Choose backend key-based or managed-identity authentication; resolve verification warnings.</li><li>Inspect imported models and record the exact, unique gateway model name.</li><li>Use <strong>Keys / Create API key</strong> for one application and environment; store the key securely.</li></ol>
+      <p class="callout warning">Foundry selection is per account: all its deployments are imported. Runtime keys grant access to every published model and tool.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Verify the published asset list before issuing access. The managed-identity import wizard can enable a system-assigned identity and assign Foundry User on selected accounts when you have sufficient permissions. A failed account verification can be skipped while other imports proceed, so check results rather than assuming everything succeeded. The Discover playground uses a built-in key; create an app-specific runtime key for the PoC client.</aside>
+    </section>
+
+    <section class="slide" id="first-call" aria-labelledby="call-heading" tabindex="-1">
+      <div class="eyebrow">Part 2 / First model call / PowerShell example</div>
+      <h2 id="call-heading">Change the endpoint.<br>Keep provider keys out of the client.</h2>
+      <pre><code>$body = @{
+  model = $env:AI_GATEWAY_MODEL
+  messages = @(@{ role = "user"; content = "Explain an AI gateway briefly." })
+} | ConvertTo-Json -Depth 4
+
+Invoke-RestMethod -Method Post `
+  -Uri "$($env:AI_GATEWAY_BASE_URL.TrimEnd('/'))/chat/completions" `
+  -Headers @{ "api-key" = $env:AI_GATEWAY_API_KEY } `
+  -ContentType "application/json" -Body $body</code></pre>
+      <p class="takeaway">Set the three environment variables locally. Copy the exact OpenAI-compatible base URL from the gateway; use the registered model name.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Run in a local terminal, not this webpage. AI_GATEWAY_BASE_URL is the full model base URL, for example https://&lt;gateway&gt;.azure-api.net/default/models/openai/v1. AI_GATEWAY_MODEL is the exact published model name. AI_GATEWAY_API_KEY is the app runtime key loaded from an approved secret store. This example is for a non-streaming OpenAI-compatible chat model, not Anthropic Messages API passthrough. Check a 200 response with choices/message/content; invalid key should fail with 401, a wrong model name should not silently route elsewhere. Do not log keys or sensitive response payloads.</aside>
     </section>
 
     <section class="slide" id="lab-1" aria-labelledby="lab-1-heading" tabindex="-1">
-      <div class="eyebrow">Lab 1 / Centralise / 30 minutes</div>
+      <div class="eyebrow">Core PoC / Lab 1 / Governed access / 15 minutes</div>
       <h2 id="lab-1-heading">Put the gateway in control.</h2>
       <div class="comparison">
         <div class="card"><span class="number">Before</span><p>Application &rarr; provider &rarr; model</p><p class="small">The application handles provider endpoints and credentials.</p></div>
@@ -146,44 +290,18 @@
     </section>
 
     <section class="slide" id="lab-2" aria-labelledby="lab-2-heading" tabindex="-1">
-      <div class="eyebrow">Lab 2 / Control / 30 minutes</div>
+      <div class="eyebrow">Core PoC / Lab 2 / Policy enforcement / 20 minutes</div>
       <h2 id="lab-2-heading">Control consumption<br>by consumer.</h2>
       <div class="split">
-        <ol class="tasks"><li>Identify the caller using a trusted consumer identity.</li><li>Apply a small token or request limit.</li><li>Generate requests as app-a until the policy enforces it.</li><li>Repeat as app-b and confirm an independent counter.</li></ol>
-        <div class="statement"><h3>Independent counters</h3><p>app-a &rarr; allowance A<br>app-b &rarr; allowance B</p><p class="small">Inspect the real policy response. Rate and quota policies can enforce different limits and status codes.</p></div>
+        <ol class="tasks"><li>Create separate runtime keys for app-a and app-b.</li><li>Use <strong>Policies / Add policy</strong>; select a model and a small request or token limit.</li><li>Count by <strong>caller identity</strong>; send requests with app-a until blocked.</li><li>Repeat with app-b's key and inspect its independent allowance.</li></ol>
+        <div class="statement"><h3>Observe enforcement</h3><p>Allowed request &rarr; success<br>Rate-limited request &rarr; 429</p><p class="small">Honour Retry-After. Use caller identity, not IP counting, for the two-application test.</p></div>
       </div>
       <p class="takeaway">Success: one consumer's exhausted allowance does not consume another's.</p>
-      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> A caller-controlled app label alone is not a security boundary. Bind the counter key to validated identity. Discuss scope and enforcement windows. Observe actual status codes for the selected policy rather than assuming all restrictions produce the same response.</aside>
-    </section>
-
-    <section class="slide" id="lab-3" aria-labelledby="lab-3-heading" tabindex="-1">
-      <div class="eyebrow">Lab 3 / Resilience / 30 minutes</div>
-      <h2 id="lab-3-heading">Backend capacity changes.<br>The client endpoint does not.</h2>
-      <div class="flow route-flow">
-        <div><h3>Application</h3><p>Same gateway URL</p></div>
-        <div><h3>AI gateway</h3><p>Backend pool + routing strategy + circuit breaker</p></div>
-        <div><h3>Deployments</h3><p>Primary capacity<br>Secondary / alternate capacity</p></div>
-      </div>
-      <p class="sequence">Create two backends &rarr; build a pool &rarr; route the API &rarr; simulate a failure &rarr; inspect recovery</p>
-      <p class="takeaway">Design decision: round-robin, weighted or priority-based routing?</p>
-      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Test only in a noncritical environment. Verify the chosen tier's pool and circuit-breaker support. Consider retry safety, data residency, remaining capacity and what happens when all backends fail. Success means observed behaviour matches the intended strategy, not a promise of zero downtime.</aside>
-    </section>
-
-    <section class="slide" id="lab-4" aria-labelledby="lab-4-heading" tabindex="-1">
-      <div class="eyebrow">Lab 4 / Optimise / 25 minutes</div>
-      <h2 id="lab-4-heading">Avoid paying for<br>the same intent twice.</h2>
-      <div class="grid grid-3">
-        <article class="card"><span class="number">Lookup</span><h3>Prompt + similarity</h3><p>Look for an appropriate cached response using embeddings.</p></article>
-        <article class="card accent-card"><span class="number">Hit</span><h3>Return cached response</h3><p>Avoid another model call when reuse is safe.</p></article>
-        <article class="card"><span class="number">Miss</span><h3>Call model + store</h3><p>Generate a response and cache it where appropriate.</p></article>
-      </div>
-      <p class="sequence">Baseline similar prompts &rarr; configure lookup + store &rarr; compare latency and backend calls</p>
-      <p class="callout warning">Similarity is not correctness. Discuss threshold, TTL and partitioning; cached results can be stale, unsafe or wrong for another context.</p>
-      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Choose repeatable, nonsensitive prompts. Compare quality as well as performance. Do not reuse sensitive responses across consumer or access boundaries. Verify cache support and its data location for the chosen tier.</aside>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Dedicated-tier policy cards use Type, Assets and Configure. Request and token rate-limit blocks return 429. Confirm which control rejected the call; backend throttling can also return 429. One key per application plus caller-identity counting demonstrates isolation of counters, not per-model authorisation. Runtime keys remain gateway-scoped. If the portal's preview options differ, inspect current documentation and record the discrepancy.</aside>
     </section>
 
     <section class="slide" id="lab-5" aria-labelledby="lab-5-heading" tabindex="-1">
-      <div class="eyebrow">Lab 5 / Observe / 25 minutes</div>
+      <div class="eyebrow">Core PoC / Lab 5 / Telemetry / 15 minutes</div>
       <h2 id="lab-5-heading">Make consumption visible.<br>Then make decisions.</h2>
       <div class="grid grid-3">
         <article class="card"><span class="number">Measure</span><h3>Tokens + performance</h3><p>Prompt, completion and total tokens. Latency and request outcomes.</p></article>
@@ -192,15 +310,54 @@
       </div>
       <p class="sequence">Measure &rarr; understand &rarr; define policy &rarr; enforce &rarr; measure again</p>
       <p class="callout warning">Review logging before capturing traffic. Prompts, responses and tool payloads may contain sensitive information.</p>
-      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Configure a supported telemetry destination. Generate successful and rejected requests, then explain who consumed capacity and which control should change. Telemetry support and token accounting vary by integration.</aside>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Configure Application Insights in the subscription or another approved OpenTelemetry destination using the gateway's monitoring configuration. Dedicated-tier telemetry uses OpenTelemetry GenAI conventions, including gen_ai.* fields. Generate successful and rejected traffic, inspect supported token and latency fields and correlate the caller. Do not assume prompts are safe to log. Policy counters are not a replacement for provider billing or Azure Cost Management.</aside>
     </section>
 
     <section class="slide" id="lab-6" aria-labelledby="lab-6-heading" tabindex="-1">
-      <div class="eyebrow">Lab 6 / Govern tools / Extension</div>
+      <div class="eyebrow">Core PoC / Lab 6 / Approved MCP tool / 20 minutes</div>
       <h2 id="lab-6-heading">Give agents approved tools.<br>Not unrestricted APIs.</h2>
-      <ol class="tasks large-tasks"><li><strong>Choose a managed REST API.</strong> Select safe operations for tool exposure.</li><li><strong>Create the MCP server.</strong> Expose only the approved operations where supported.</li><li><strong>Connect an MCP client.</strong> List tools and invoke one through the governed endpoint.</li><li><strong>Inspect telemetry.</strong> Review tool-call traffic and payload sensitivity.</li></ol>
+      <ol class="tasks large-tasks"><li><strong>Choose a safe source.</strong> Use an approved remote MCP server or OpenAPI definition.</li><li><strong>Create the MCP server.</strong> Configure backend authentication and review its tool inventory.</li><li><strong>Connect an MCP client.</strong> Use the gateway's toolserver endpoint and runtime key; list tools and call one.</li><li><strong>Inspect telemetry.</strong> Validate the allowed operation and inspect policy and tool-call outcomes.</li></ol>
       <p class="takeaway">Success: controlled access, a deliberate tool inventory, and clear ownership.</p>
-      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> MCP means Model Context Protocol. Tool approval does not replace per-operation authorisation. Discuss who approves tools, manages changes and owns retirement. Verify current MCP support before the exercise.</aside>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> The dedicated tier supports remote MCP backends, OpenAPI definitions and built-in connectors; use one already approved source for this PoC. The endpoint follows .../toolservers/&lt;server-name&gt;/mcp; copy its exact URL from the portal. Backend authentication options include None, API Key, OAuth 2.0 and Managed identity as applicable. Restrict the source API or server before exposing it; do not assume keys provide per-tool scoping. Apply request rate limits to tools; token rate limits apply to models. Record who owns approval and lifecycle.</aside>
+    </section>
+
+    <section class="slide" id="poc-acceptance" aria-labelledby="acceptance-heading" tabindex="-1">
+      <div class="eyebrow">Part 2 / Evidence + closeout / 10 minutes</div>
+      <h2 id="acceptance-heading">A successful PoC has evidence.<br>Not just a working demo.</h2>
+      <div class="grid grid-3">
+        <article class="card"><h3>Governed access</h3><p>A real model call succeeds via the gateway. An invalid runtime key is rejected. No provider key is in the client.</p></article>
+        <article class="card"><h3>Control + attribution</h3><p>Limits reject excess traffic; app keys have independent counters. Token and latency telemetry is visible.</p></article>
+        <article class="card"><h3>Tool + closeout</h3><p>An approved MCP operation succeeds. Record gaps, owner and rollback; revoke lab keys and clean up approved lab resources.</p></article>
+      </div>
+      <p class="takeaway">Capture sanitised results, not secrets. Decide whether to proceed, change the design or stop.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Record response status, policy identity and timestamps; confirm rate-limit errors originate from the intended control rather than only from the backend. Check the telemetry destination, model/tool inventory and gateway-wide key scope. Do not delete shared model, telemetry or tool resources: clean up only resources explicitly created for this pilot and approved for removal. A failed criterion is a reported gap, not a passed PoC. No production migration is implied.</aside>
+    </section>
+
+    <section class="slide" id="lab-3" aria-labelledby="lab-3-heading" tabindex="-1">
+      <div class="eyebrow">Optional extension / Standard APIM / Not the dedicated-tier PoC</div>
+      <h2 id="lab-3-heading">Backend capacity changes.<br>The client endpoint does not.</h2>
+      <div class="flow route-flow">
+        <div><h3>Application</h3><p>Same gateway URL</p></div>
+        <div><h3>Standard APIM</h3><p>Backend pool + routing strategy + circuit breaker</p></div>
+        <div><h3>Deployments</h3><p>Primary capacity<br>Secondary / alternate capacity</p></div>
+      </div>
+      <p class="sequence">Create two backends &rarr; build a pool &rarr; route the API &rarr; simulate a failure &rarr; inspect recovery</p>
+      <p class="takeaway">Requires a separately configured, supported standard APIM tier. Not deployed in today's core PoC.</p>
+      <p class="source"><a href="https://learn.microsoft.com/en-us/azure/api-management/genai-gateway-capabilities" target="_blank" rel="noreferrer">Source: standard APIM AI capabilities &nearr;</a></p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Skip this extension unless a separate standard APIM instance and model backends are already prepared and in scope. The dedicated-tier overview does not establish support for this backend-pool workflow. In standard APIM, verify tier support and choose round-robin, weighted or priority routing; test only in a noncritical environment. Consider retry safety, data residency and remaining capacity.</aside>
+    </section>
+
+    <section class="slide" id="lab-4" aria-labelledby="lab-4-heading" tabindex="-1">
+      <div class="eyebrow">Optional extension / Standard APIM / Not the dedicated-tier PoC</div>
+      <h2 id="lab-4-heading">Avoid paying for<br>the same intent twice.</h2>
+      <div class="grid grid-3">
+        <article class="card"><span class="number">Lookup</span><h3>Prompt + similarity</h3><p>Look for an appropriate cached response using embeddings.</p></article>
+        <article class="card accent-card"><span class="number">Hit</span><h3>Return cached response</h3><p>Avoid another model call when reuse is safe.</p></article>
+        <article class="card"><span class="number">Miss</span><h3>Call model + store</h3><p>Generate a response and cache it where appropriate.</p></article>
+      </div>
+      <p class="sequence">Standard APIM + embeddings endpoint + compatible external cache. Not established as a dedicated-tier capability by the cited overview.</p>
+      <p class="callout warning">Similarity is not correctness. Discuss threshold, TTL and partitioning; cached results can be stale, unsafe or wrong for another context.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Optional standard APIM exercise only. Configure llm-semantic-cache-lookup and llm-semantic-cache-store policies with an embeddings endpoint and an onboarded RediSearch-compatible external cache, such as Azure Managed Redis. Check policy/tier support. Compare repeatable, nonsensitive prompts, latency, calls and quality. Do not reuse sensitive responses across access boundaries.</aside>
     </section>
 
     <section class="slide" id="pilot-guardrails" aria-labelledby="guardrails-heading" tabindex="-1">
@@ -250,7 +407,7 @@
     </div>
     <p id="slide-status" role="status" aria-live="polite" aria-atomic="true"></p>
     <div class="control-group"><button type="button" id="notes-toggle" aria-pressed="false" title="Speaker notes (N)">Notes</button><button type="button" id="fullscreen" aria-pressed="false" title="Fullscreen (F)">Fullscreen</button></div>
-    <progress id="slide-progress" value="1" max="16" aria-label="Slide progress"></progress>
+    <progress id="slide-progress" value="1" max="29" aria-label="Slide progress"></progress>
   </footer>
   <p id="presentation-error" role="alert" hidden></p>
 </body>
