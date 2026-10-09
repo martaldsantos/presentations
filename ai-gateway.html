@@ -3,476 +3,255 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f1f3ee">
-  <meta name="description" content="Explore AI gateway architecture, consumption controls, resilience, semantic caching, observability and governed MCP tools in an interactive workshop.">
-  <title>AI Gateway in Practice — Marta Santos</title>
+  <meta name="theme-color" content="#174e48">
+  <meta name="description" content="AI Gateway in Practice: a customer-neutral web presentation on governed model access, consumption controls, resilience, caching, observability and MCP tools.">
+  <title>AI Gateway in Practice | Marta Santos</title>
   <link rel="stylesheet" href="assets/ai-gateway.css">
   <script src="assets/ai-gateway.js" defer></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      color-scheme: light;
-      --paper: #f1f3ee;
-      --ink: #172522;
-      --muted: #596660;
-      --line: #cbd2cb;
-      --green: #c9f36b;
-      --coral: #f16c51;
-      --deep: #174e48;
-      --mono: "DM Mono", monospace;
-      --sans: "DM Sans", sans-serif;
-      --display: "Fraunces", Georgia, serif;
-      font-family: var(--sans);
-      color: var(--ink);
-      background: var(--paper);
-      font-synthesis: none;
-      text-rendering: optimizeLegibility;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-width: 320px;
-      background-image: radial-gradient(#17252212 0.7px, transparent 0.7px);
-      background-size: 9px 9px;
-    }
-
-    a { color: inherit; }
-
-    .wrap {
-      width: min(1160px, calc(100% - 48px));
-      margin-inline: auto;
-    }
-
-    .topbar {
-      min-height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--line);
-      font-size: 13px;
-    }
-
-    .wordmark {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .mark {
-      width: 34px;
-      height: 34px;
-      display: grid;
-      place-items: center;
-      background: var(--green);
-      font-family: var(--mono);
-      font-size: 12px;
-    }
-
-    .top-meta, .eyebrow, .micro-label {
-      font-family: var(--mono);
-      font-size: 11px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .top-meta { color: var(--muted); }
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.5fr) minmax(270px, 0.7fr);
-      gap: 36px;
-      align-items: stretch;
-      padding-block: 68px 58px;
-    }
-
-    .eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--deep);
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 24px;
-      height: 3px;
-      background: var(--coral);
-    }
-
-    h1 {
-      max-width: 760px;
-      margin: 20px 0 18px;
-      font-family: var(--display);
-      font-size: clamp(54px, 7.2vw, 92px);
-      font-weight: 500;
-      line-height: 0.98;
-    }
-
-    h1 span { color: var(--deep); }
-
-    .dek {
-      max-width: 570px;
-      margin: 0;
-      color: #394741;
-      font-size: 19px;
-      line-height: 1.55;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 30px;
-    }
-
-    .action {
-      min-height: 46px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0 17px;
-      border: 1px solid var(--ink);
-      background: var(--ink);
-      color: white;
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
-    }
-
-    .action:hover { transform: translateY(-2px); }
-    .action.secondary { background: transparent; color: var(--ink); }
-    .action.secondary:hover { background: var(--green); }
-
-    .edition {
-      position: relative;
-      min-height: 300px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow: hidden;
-      padding: 25px;
-      background: var(--deep);
-      color: white;
-    }
-
-    .edition::after {
-      content: "AI";
-      position: absolute;
-      right: -8px;
-      bottom: 9px;
-      color: #ffffff12;
-      font-family: var(--display);
-      font-size: 190px;
-      line-height: 0.8;
-      pointer-events: none;
-    }
-
-    .edition .micro-label { position: relative; z-index: 1; color: #d8e6da; }
-
-    .edition-number {
-      position: relative;
-      z-index: 1;
-      color: var(--green);
-      font-family: var(--display);
-      font-size: 88px;
-      line-height: 0.9;
-    }
-
-    .edition p {
-      position: relative;
-      z-index: 1;
-      max-width: 220px;
-      margin: 12px 0 0;
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .facts {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .fact { min-height: 86px; padding: 17px 20px 16px 0; }
-    .fact + .fact { padding-left: 20px; border-left: 1px solid var(--line); }
-    .fact .micro-label { color: var(--muted); }
-    .fact strong { display: block; margin-top: 7px; font-size: 14px; font-weight: 600; }
-
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 20px;
-      padding: 56px 0 18px;
-    }
-
-    h2 {
-      margin: 0;
-      font-family: var(--display);
-      font-size: 34px;
-      font-weight: 500;
-      line-height: 1.1;
-    }
-
-    .section-note { margin: 0; color: var(--muted); font-size: 13px; }
-
-    .labs {
-      margin-top: 68px;
-      padding-block: 42px 52px;
-      border-top: 1px solid var(--line);
-    }
-
-    .labs-intro {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 24px;
-      margin-bottom: 26px;
-    }
-
-    .labs-intro p { max-width: 340px; margin: 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
-
-    .lab-list {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      border-top: 1px solid var(--line);
-      border-left: 1px solid var(--line);
-    }
-
-    .lab {
-      min-height: 116px;
-      padding: 18px;
-      border-right: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .lab .micro-label { color: var(--deep); }
-    .lab h3 { margin: 12px 0 0; font-size: 15px; font-weight: 600; }
-
-    footer {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      padding-block: 20px 28px;
-      border-top: 1px solid var(--line);
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    @media (max-width: 720px) {
-      .wrap { width: min(100% - 32px, 560px); }
-      .topbar { min-height: 64px; }
-      .top-meta { font-size: 9px; }
-      .hero { grid-template-columns: 1fr; gap: 28px; padding-block: 48px 38px; }
-      h1 { max-width: 520px; font-size: clamp(54px, 15vw, 76px); }
-      .edition { min-height: 220px; }
-      .edition-number { font-size: 72px; }
-      .edition::after { font-size: 150px; }
-      .facts { grid-template-columns: 1fr; }
-      .fact { min-height: 70px; padding: 13px 0; }
-      .fact + .fact { padding-left: 0; border-top: 1px solid var(--line); border-left: 0; }
-      .section-head, .labs-intro { align-items: start; flex-direction: column; }
-      .section-head { padding-top: 42px; }
-      .labs { margin-top: 48px; padding-top: 34px; }
-      .lab-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .lab { min-height: 100px; padding: 14px; }
-      footer { flex-direction: column; gap: 8px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
-    }
-  </style>
 </head>
 <body>
-  <a class="skip" href="#top">Skip to content</a>
-  <header class="topbar wrap">
-    <a class="wordmark" href="./" aria-label="Marta Santos presentations home">
-      <span class="mark" aria-hidden="true">MS</span>
-      <span>Marta Santos <span aria-hidden="true">/</span> Presentations</span>
-    </a>
-    <a class="top-meta" href="./">All presentations</a>
+  <a class="skip" href="#deck">Skip to presentation</a>
+  <header class="topbar">
+    <a class="wordmark" href="./"><span class="mark" aria-hidden="true">MS</span><span>Marta Santos / Presentations</span></a>
+    <a href="./" class="back">All presentations</a>
   </header>
+  <main id="deck" aria-label="AI Gateway in Practice presentation">
+    <noscript><p class="no-script">JavaScript is off: all slides are shown below in reading order. Enable it for slide navigation.</p></noscript>
 
-  <main id="top" class="wrap">
-    <section class="hero" aria-labelledby="presentation-title">
-      <div>
-        <div class="eyebrow">Interactive workshop &nbsp;·&nbsp; Self-paced</div>
-        <h1 id="presentation-title">AI Gateway<br><span>in Practice</span></h1>
-        <p class="dek">Govern, optimise and scale AI. Explore how one gateway becomes the operating boundary for applications, models and agent tools.</p>
-        <div class="actions">
-          <a class="action" href="#flow">Explore the request flow</a>
-          <a class="action secondary" href="#labs">Start the labs</a>
-        </div>
-      </div>
-      <aside class="edition" aria-label="Presentation details">
-        <span class="micro-label">One governed boundary</span>
-        <div>
-          <div class="edition-number">06</div>
-          <p>labs that turn AI access into practical governance decisions.</p>
-        </div>
-        <span class="micro-label">Learn &nbsp;·&nbsp; Experiment &nbsp;·&nbsp; Decide</span>
-      </aside>
+    <section class="slide title-slide" id="title" aria-labelledby="title-heading" tabindex="-1">
+      <div class="eyebrow">Azure API Management / Hands-on workshop</div>
+      <h1 id="title-heading">AI Gateway<br><span>in Practice</span></h1>
+      <p class="subtitle">Govern, optimise and scale AI.<br>One operating boundary for applications, models and tools.</p>
+      <p class="author">Marta Santos</p>
+      <p class="hint">16 slides &middot; Six labs &middot; Customer-neutral</p>
+      <p class="hint">Arrows / Space to advance &middot; F for fullscreen &middot; N for notes</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Introduce the gateway as an operating model, not just another endpoint. Use arrow keys, Space or the navigation buttons to advance. Swipe on touch screens. Press F for fullscreen and N for notes.</aside>
     </section>
 
-    <section class="facts" aria-label="Workshop details">
-      <div class="fact"><span class="micro-label">Format</span><strong>Self-paced or three-hour guided session</strong></div>
-      <div class="fact"><span class="micro-label">Platform</span><strong>Azure API Management</strong></div>
-      <div class="fact"><span class="micro-label">Focus</span><strong>Governance, cost, resilience, visibility</strong></div>
+    <section class="slide" id="journey" aria-labelledby="journey-heading" tabindex="-1">
+      <div class="eyebrow">What we will build together</div>
+      <h2 id="journey-heading">One governed boundary.<br>Six practical steps.</h2>
+      <div class="grid grid-3">
+        <article class="card"><span class="number">01</span><h3>Centralise</h3><p>Route applications through one gateway endpoint.</p></article>
+        <article class="card"><span class="number">02</span><h3>Control</h3><p>Apply access, token and request guardrails.</p></article>
+        <article class="card"><span class="number">03</span><h3>Resilience</h3><p>Separate application logic from backend availability.</p></article>
+        <article class="card"><span class="number">04</span><h3>Optimise</h3><p>Reduce avoidable calls and use capacity intelligently.</p></article>
+        <article class="card"><span class="number">05</span><h3>Observe</h3><p>Measure tokens, latency and consumer behaviour.</p></article>
+        <article class="card"><span class="number">06</span><h3>Govern tools</h3><p>Publish approved MCP tools for agents.</p></article>
+      </div>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Each lab should answer an operational problem. The core session covers labs 1 to 5; MCP is an extension. This deck makes no Azure calls.</aside>
     </section>
 
-    <nav class="section-nav" aria-label="Workshop sections">
-      <a href="#why">Why a gateway?</a><a href="#flow">Request flow</a><a href="#labs">Six labs</a><a href="#guardrails">Pilot guardrails</a><a href="#canvas">Decision canvas</a>
-    </nav>
-
-    <section id="why" aria-labelledby="why-title">
-      <div class="section-head">
-        <h2 id="why-title">From scattered access to shared control</h2>
+    <section class="slide" id="why-gateway" aria-labelledby="why-heading" tabindex="-1">
+      <div class="eyebrow">The operational problem</div>
+      <h2 id="why-heading">AI access is easy.<br>Operating it responsibly is harder.</h2>
+      <div class="grid grid-3">
+        <article class="card"><h3>Cost + accountability</h3><p>Quotas, caching, visibility and team-level attribution.</p></article>
+        <article class="card"><h3>Capacity + continuity</h3><p>Multiple endpoints, load balancing and regional fallback.</p></article>
+        <article class="card"><h3>Central governance</h3><p>Common access, security and lifecycle controls.</p></article>
+        <article class="card"><h3>Model access</h3><p>Remove direct provider credentials from applications.</p></article>
+        <article class="card"><h3>Observability</h3><p>Understand token usage and latency across workloads.</p></article>
+        <article class="card"><h3>Agent tools</h3><p>Control and reuse approved MCP servers and APIs.</p></article>
       </div>
-      <p class="body-copy">Direct integrations leave each application responsible for provider credentials, backend availability and usage controls. A gateway separates application logic from platform operations: applications integrate once; platform teams manage access, policies, models and tools centrally.</p>
-      <div class="topic-grid">
-        <article><h3>Cost + accountability</h3><p>Combine quotas, caching and workload attribution to understand consumption and avoid unnecessary calls.</p></article>
-        <article><h3>Capacity + continuity</h3><p>Use multiple deployments, routing strategies and fallback without changing the application's endpoint.</p></article>
-        <article><h3>Central governance</h3><p>Keep provider credentials behind the gateway and apply common access and lifecycle controls.</p></article>
-        <article><h3>Observable operations</h3><p>Measure tokens, latency and outcomes before changing limits or architecture.</p></article>
-        <article><h3>Approved agent tools</h3><p>Expose a deliberate set of API operations through governed MCP endpoints.</p></article>
-        <article><h3>One operating model</h3><p>Connect identity, policy, routing and telemetry rather than treating them as isolated features.</p></article>
-      </div>
+      <p class="takeaway">Every demo should answer an operating problem, not just show a feature.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Ask which problem matters most to the audience. Keep examples generic and do not disclose customer environments, identities or workload data.</aside>
     </section>
 
-    <section id="flow" aria-labelledby="flow-title">
-      <div class="section-head"><h2 id="flow-title">Follow a request</h2><p class="section-note">Select a step to explore its responsibility.</p></div>
-      <p class="body-copy">Application &rarr; AI gateway (identity + policies + routing + telemetry) &rarr; model deployment or approved tool. Model names and tool names become routing choices rather than hard-coded provider endpoints.</p>
-      <div class="flow-steps" aria-label="Request lifecycle">
-        <button type="button" data-step="call" aria-pressed="true">01 / Call gateway</button>
-        <button type="button" data-step="authenticate" aria-pressed="false">02 / Authenticate</button>
-        <button type="button" data-step="policy" aria-pressed="false">03 / Evaluate policy</button>
-        <button type="button" data-step="route" aria-pressed="false">04 / Route</button>
-        <button type="button" data-step="observe" aria-pressed="false">05 / Observe</button>
+    <section class="slide" id="operating-model" aria-labelledby="model-heading" tabindex="-1">
+      <div class="eyebrow">The operating model</div>
+      <h2 id="model-heading">Integrate once.<br>Govern centrally.</h2>
+      <div class="split">
+        <ul class="key-points">
+          <li>One endpoint for approved models and tools.</li>
+          <li>Authenticate callers and evaluate policies before routing.</li>
+          <li>Keep backend credentials with the platform.</li>
+          <li>Use telemetry to make operating decisions.</li>
+        </ul>
+        <div class="statement"><span class="number">One boundary</span><p>Identity<br>Policies<br>Routing<br>Telemetry</p></div>
       </div>
-      <div class="flow-detail" aria-live="polite" aria-atomic="true">
-        <h3 id="flow-heading">One endpoint, one integration</h3>
-        <p id="flow-description">The application calls the gateway instead of a provider directly. Backend credentials remain with the platform, not in application code.</p>
-      </div>
-      <noscript><p>Authenticate the caller, evaluate guardrails, route to an approved model or tool, then record usage and latency. Enable JavaScript to explore individual steps and simulations; the labs below remain readable without it.</p></noscript>
+      <p class="takeaway">Evaluate the dedicated AI Gateway tier and supported API Management capabilities separately.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> The source workshop explores a dedicated preview tier. Capability availability is not interchangeable across tiers. Verify current authentication, model and tool support before provisioning. Avoid turning a preview exploration into a production commitment.</aside>
     </section>
 
-    <section id="labs" class="labs" aria-labelledby="labs-title">
-      <div class="labs-intro">
-        <div>
-          <div class="eyebrow">Workshop outline</div>
-          <h2 id="labs-title" style="margin-top: 10px">Six labs, one operating model</h2>
-        </div>
-        <p>Expand a lab for tasks and success criteria. Use your own approved lab environment; the examples on this page make no Azure calls.</p>
-      </div>
-      <div class="progress-row"><label for="lab-progress">Your exploration progress</label><span id="progress-label" role="status">0 of 6 labs complete</span></div>
-      <progress id="lab-progress" value="0" max="6">0 of 6</progress>
-      <p class="section-note">Completion is self-assessed and stays in this page session only.</p>
-      <div class="workshop-labs">
-        <details open>
-          <summary><span class="micro-label">01 / Centralise / 30 min</span>Put the gateway in control</summary>
-          <div class="lab-content">
-            <p>Replace direct model access with a governed endpoint. Before: application &rarr; provider endpoint and credential. After: application &rarr; gateway &rarr; model, with the provider credential held by the platform.</p>
-            <ol><li>Add a Foundry or custom model to your approved gateway configuration.</li><li>Create a runtime access key or configure the authentication method supported by your deployment.</li><li>Call the model through the gateway endpoint.</li><li>Confirm that the application does not handle provider credentials.</li></ol>
-            <p class="success"><strong>Success:</strong> the same model response arrives through a new governed path.</p>
-            <label class="complete"><input type="checkbox" data-complete> I validated governed model access</label>
-          </div>
-        </details>
-        <details>
-          <summary><span class="micro-label">02 / Control / 30 min</span>Manage AI consumption</summary>
-          <div class="lab-content">
-            <p>Apply token and request guardrails by consumer. Use a trusted application identity as the counter key; a caller-controlled label alone is not an access boundary.</p>
-            <ol><li>Identify the consumer and decide whether limits belong to an application, user, workload or environment.</li><li>Configure a small token-throughput limit that is easy to trigger.</li><li>Generate repeated requests as app-a and inspect the enforced policy and response.</li><li>Repeat as app-b and confirm an independent counter. Check the actual status codes for your chosen policy.</li></ol>
-            <div class="simulation">
-              <h3>Try independent consumer counters</h3>
-              <p>Illustrative simulation: a fixed 100-token session budget per application, with 40 tokens per request. This is not a real rate window or an Azure response.</p>
-              <div class="simulation-actions"><button type="button" data-consumer="app-a">Send as app-a</button><button type="button" data-consumer="app-b">Send as app-b</button><button type="button" id="reset-budget">Reset counters</button></div>
-              <p id="budget-state">app-a: 0 / 100 tokens | app-b: 0 / 100 tokens</p>
-              <p id="budget-result" role="status">Choose an application to send a simulated request.</p>
-            </div>
-            <p class="success"><strong>Success:</strong> one consumer reaching its limit does not consume another consumer's allowance.</p>
-            <label class="complete"><input type="checkbox" data-complete> I validated independent consumption limits</label>
-          </div>
-        </details>
-        <details>
-          <summary><span class="micro-label">03 / Resilience / 30 min</span>Route across deployments</summary>
-          <div class="lab-content">
-            <p>Keep the client endpoint stable while backend capacity or availability changes. A pool can combine a preferred deployment with alternate capacity; circuit-breaker and routing behaviour depend on the selected configuration.</p>
-            <ol><li>Create two approved model backends.</li><li>Build a backend pool and route the API to it.</li><li>Choose round-robin, weighted or priority-based routing based on the workload.</li><li>Simulate a backend failure in a noncritical environment.</li><li>Inspect routing outcomes, errors and recovery without changing the application URL.</li></ol>
-            <p class="success"><strong>Success:</strong> observed behaviour matches the intended fallback strategy. Consider retry safety, regional requirements and remaining capacity.</p>
-            <label class="complete"><input type="checkbox" data-complete> I validated backend routing and recovery</label>
-          </div>
-        </details>
-        <details>
-          <summary><span class="micro-label">04 / Optimise / 25 min</span>Use semantic caching</summary>
-          <div class="lab-content">
-            <p>For appropriate repeatable prompts, look up a cached response using embeddings and similarity. A hit returns a cached result; a miss calls the model and can store the response.</p>
-            <ol><li>Baseline two similar prompts without caching.</li><li>Configure cache lookup and response storage where supported.</li><li>Compare latency and backend-call counts on hits and misses.</li><li>Discuss similarity threshold, time-to-live and partitioning by consumer or context.</li></ol>
-            <p class="caution"><strong>Guardrail:</strong> similarity does not guarantee correctness. Cached responses can be stale, unsafe or wrong for a different user or context. Do not share sensitive results across access boundaries.</p>
-            <p class="success"><strong>Success:</strong> suitable repeated intent avoids a backend call without violating freshness, quality or isolation requirements.</p>
-            <label class="complete"><input type="checkbox" data-complete> I evaluated cache quality and isolation</label>
-          </div>
-        </details>
-        <details>
-          <summary><span class="micro-label">05 / Observe / 25 min</span>Make token use visible</summary>
-          <div class="lab-content">
-            <p>Connect telemetry to workload accountability. Measure prompt, completion and total tokens alongside latency and request outcomes. Attribute usage to application, environment and workload.</p>
-            <ol><li>Enable supported gateway telemetry and configure its destination.</li><li>Generate successful and policy-rejected requests.</li><li>Inspect token metrics, latency, outcomes and consumer dimensions.</li><li>Use the evidence to propose changes to quotas, architecture or cache policy.</li></ol>
-            <p class="caution">Review logging configuration before capturing traffic. Prompts, responses and tool payloads may contain sensitive information.</p>
-            <p class="success"><strong>Success:</strong> you can explain who consumed capacity and which control should change. Measure &rarr; understand &rarr; define policy &rarr; enforce &rarr; measure again.</p>
-            <label class="complete"><input type="checkbox" data-complete> I connected telemetry to an operating decision</label>
-          </div>
-        </details>
-        <details>
-          <summary><span class="micro-label">06 / Govern / Extension</span>Publish approved MCP tools</summary>
-          <div class="lab-content">
-            <p>Expose only approved operations through a controlled Model Context Protocol (MCP) endpoint. Tool availability should reflect a deliberate approval and ownership process.</p>
-            <ol><li>Select one managed REST API and identify safe operations to expose.</li><li>Create an MCP server using the selected operations where supported.</li><li>Connect an MCP client, list the tools and invoke an approved operation.</li><li>Inspect tool-call telemetry and discuss payload sensitivity.</li></ol>
-            <p class="success"><strong>Success:</strong> the client sees only the intended tools, access is controlled, and each tool has an owner and lifecycle plan.</p>
-            <label class="complete"><input type="checkbox" data-complete> I reviewed governed tool access</label>
-          </div>
-        </details>
-      </div>
-      <details class="schedule"><summary>Planning a guided session?</summary><p>Prepare and validate the environment before the session. Suggested three-hour core path: context and validation (20 min), lab 1 (30 min), lab 2 (30 min), break (10 min), lab 3 (30 min), lab 4 (25 min), lab 5 (25 min), wrap-up (10 min). Schedule the MCP extension separately if more time is needed.</p></details>
+    <section class="slide" id="request-flow" aria-labelledby="flow-heading" tabindex="-1">
+      <div class="eyebrow">What happens on every request</div>
+      <h2 id="flow-heading">The gateway becomes<br>the runtime boundary.</h2>
+      <ol class="flow">
+        <li><span class="number">01</span><h3>Call gateway</h3><p>One endpoint</p></li>
+        <li><span class="number">02</span><h3>Authenticate</h3><p>Trusted consumer identity</p></li>
+        <li><span class="number">03</span><h3>Evaluate policy</h3><p>Access + consumption guardrails</p></li>
+        <li><span class="number">04</span><h3>Route</h3><p>Approved model or tool</p></li>
+        <li><span class="number">05</span><h3>Observe</h3><p>Tokens + latency + outcomes</p></li>
+      </ol>
+      <p class="takeaway">Applications integrate once. Platform teams manage keys, policies, models and tools.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Walk through the lifecycle in order. The dedicated tier's runtime-key model and other authentication methods depend on the actual deployment. Do not rely on an untrusted caller-supplied label for access control.</aside>
     </section>
 
-    <section id="guardrails" aria-labelledby="guardrails-title">
-      <div class="section-head"><h2 id="guardrails-title">A pilot, not a production promise</h2></div>
-      <p class="body-copy">Treat the dedicated AI Gateway tier and any preview capabilities as evaluation topics. Feature availability, APIs, regions, pricing, networking and service guarantees can change. Validate current support for your tier before provisioning or adopting any lab.</p>
-      <div class="topic-grid">
-        <article><h3>Verify current support</h3><p>Check preview status, regional availability, limits and SLA terms. Do not assume a feature in one API Management tier exists in another.</p></article>
-        <article><h3>Follow the whole data path</h3><p>Assess gateway, model, cache and telemetry locations together. Gateway location alone does not establish data residency.</p></article>
-        <article><h3>Start with a safe pilot</h3><p>Choose a noncritical workload, confirm network and identity requirements, define success measures and keep a rollback plan.</p></article>
+    <section class="slide" id="architecture" aria-labelledby="architecture-heading" tabindex="-1">
+      <div class="eyebrow">Target architecture</div>
+      <h2 id="architecture-heading">One gateway in front of<br>models and governed tools.</h2>
+      <div class="diagram">
+        <svg viewBox="0 0 1000 320" role="img" aria-labelledby="architecture-svg-title architecture-svg-description">
+          <title id="architecture-svg-title">Governed AI gateway architecture</title>
+          <desc id="architecture-svg-description">Applications and agents call an AI gateway with identity, policies, routing and telemetry. The gateway routes to primary and secondary model deployments or an approved MCP tool endpoint.</desc>
+          <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#174e48"/></marker></defs>
+          <g fill="none" stroke="#174e48" stroke-width="3" marker-end="url(#arrow)">
+            <path d="M 230 160 H 340"/><path d="M 640 160 H 685 V 55 H 750"/><path d="M 640 160 H 750"/><path d="M 640 160 H 685 V 265 H 750"/>
+          </g>
+          <rect x="10" y="100" width="220" height="120" rx="8" fill="#e5ecdf" stroke="#bdc9bd"/>
+          <rect x="340" y="55" width="300" height="210" rx="8" fill="#174e48"/>
+          <g fill="#e5ecdf" stroke="#bdc9bd"><rect x="750" y="10" width="240" height="90" rx="8"/><rect x="750" y="115" width="240" height="90" rx="8"/><rect x="750" y="220" width="240" height="90" rx="8"/></g>
+          <g text-anchor="middle" font-family="system-ui, sans-serif" font-size="21" fill="#172522">
+            <text x="120" y="149">Applications</text><text x="120" y="181">+ agents</text>
+            <text x="870" y="49">Primary model</text><text x="870" y="77">deployment</text>
+            <text x="870" y="154">Secondary model</text><text x="870" y="182">deployment</text>
+            <text x="870" y="260">Approved MCP</text><text x="870" y="288">tools / APIs</text>
+          </g>
+          <g text-anchor="middle" font-family="system-ui, sans-serif"><text x="490" y="105" font-size="29" fill="#c9f36b">AI GATEWAY</text><text x="490" y="149" font-size="22" fill="white">Identity + policies</text><text x="490" y="188" font-size="22" fill="white">Routing + telemetry</text><text x="490" y="230" font-size="17" fill="#d8e6da">Provider credentials stay here</text></g>
+        </svg>
       </div>
-      <p class="body-copy"><a href="https://learn.microsoft.com/azure/api-management/ai-gateway-overview">Check current Microsoft AI gateway documentation &rarr;</a></p>
+      <p class="takeaway">The application endpoint stays stable while platform configuration evolves.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> This is a logical architecture, not a guarantee that every capability is available in every tier. Assess model, gateway, cache and telemetry locations as one data path. Tools need their own authorisation and approval process.</aside>
     </section>
 
-    <section id="canvas" class="canvas" aria-labelledby="canvas-title">
-      <div class="section-head"><h2 id="canvas-title">Your operating-model decision canvas</h2></div>
-      <p class="body-copy">Use the labs to define a prioritised pilot backlog with owners, success measures and unresolved decisions. Notes are temporary: they are not saved or submitted and will be lost when you leave or reload this page. Do not enter sensitive information.</p>
-      <div class="canvas-grid">
-        <label for="identity">Identity<textarea id="identity" placeholder="What identifies a consumer: application, user, workload or environment?"></textarea></label>
-        <label for="consumption">Consumption<textarea id="consumption" placeholder="Where should token and request limits be applied?"></textarea></label>
-        <label for="capacity">Capacity<textarea id="capacity" placeholder="What happens when the preferred deployment cannot respond?"></textarea></label>
-        <label for="accountability">Accountability<textarea id="accountability" placeholder="Which dimensions support useful showback or chargeback?"></textarea></label>
-        <label for="tools">Tools<textarea id="tools" placeholder="Who approves tools and owns their lifecycle?"></textarea></label>
-        <label for="pilot">Pilot<textarea id="pilot" placeholder="Which noncritical workload, owner and success measures come first?"></textarea></label>
+    <section class="slide" id="schedule" aria-labelledby="schedule-heading" tabindex="-1">
+      <div class="eyebrow">Hands-on journey</div>
+      <h2 id="schedule-heading">Three-hour core path.<br>MCP as an extension.</h2>
+      <div class="split">
+        <ol class="timeline">
+          <li><span>00:00</span>Context + environment validation <small>20 min</small></li>
+          <li><span>00:20</span>Lab 1 / Governed access <small>30 min</small></li>
+          <li><span>00:50</span>Lab 2 / Consumption controls <small>30 min</small></li>
+          <li><span>01:20</span>Break <small>10 min</small></li>
+          <li><span>01:30</span>Lab 3 / Backend resilience <small>30 min</small></li>
+          <li><span>02:00</span>Lab 4 / Semantic caching <small>25 min</small></li>
+          <li><span>02:25</span>Lab 5 / Token observability <small>25 min</small></li>
+          <li><span>02:50</span>Wrap-up + pilot decisions <small>10 min</small></li>
+        </ol>
+        <div class="statement"><h3>Keep provisioning<br>out of the room.</h3><p>Validate the environment, permissions and capability support before starting.</p><p class="small">Schedule the MCP extension separately when more time is needed.</p></div>
       </div>
-      <p class="closing">The gateway is not the destination.<br><strong>It is the operating boundary.</strong></p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> This is a suggested run of show. Prepare two model backends, a safe API, runtime authentication and a telemetry destination. Use approved noncritical lab resources.</aside>
+    </section>
+
+    <section class="slide" id="lab-1" aria-labelledby="lab-1-heading" tabindex="-1">
+      <div class="eyebrow">Lab 1 / Centralise / 30 minutes</div>
+      <h2 id="lab-1-heading">Put the gateway in control.</h2>
+      <div class="comparison">
+        <div class="card"><span class="number">Before</span><p>Application &rarr; provider &rarr; model</p><p class="small">The application handles provider endpoints and credentials.</p></div>
+        <div class="card accent-card"><span class="number">After</span><p>Application &rarr; gateway &rarr; model</p><p class="small">The gateway owns backend credentials and policy.</p></div>
+      </div>
+      <ol class="tasks"><li>Add a Foundry or custom model supported by your gateway.</li><li>Configure runtime access using the supported authentication method.</li><li>Call the model through the gateway.</li><li>Confirm the application never handles provider credentials.</li></ol>
+      <p class="takeaway">Success: same model response, new governed path.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Compare the direct integration with the governed path. For a runtime-key-based deployment, create a lab access key. Never expose credentials in browser content, logs or public examples.</aside>
+    </section>
+
+    <section class="slide" id="lab-2" aria-labelledby="lab-2-heading" tabindex="-1">
+      <div class="eyebrow">Lab 2 / Control / 30 minutes</div>
+      <h2 id="lab-2-heading">Control consumption<br>by consumer.</h2>
+      <div class="split">
+        <ol class="tasks"><li>Identify the caller using a trusted consumer identity.</li><li>Apply a small token or request limit.</li><li>Generate requests as app-a until the policy enforces it.</li><li>Repeat as app-b and confirm an independent counter.</li></ol>
+        <div class="statement"><h3>Independent counters</h3><p>app-a &rarr; allowance A<br>app-b &rarr; allowance B</p><p class="small">Inspect the real policy response. Rate and quota policies can enforce different limits and status codes.</p></div>
+      </div>
+      <p class="takeaway">Success: one consumer's exhausted allowance does not consume another's.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> A caller-controlled app label alone is not a security boundary. Bind the counter key to validated identity. Discuss scope and enforcement windows. Observe actual status codes for the selected policy rather than assuming all restrictions produce the same response.</aside>
+    </section>
+
+    <section class="slide" id="lab-3" aria-labelledby="lab-3-heading" tabindex="-1">
+      <div class="eyebrow">Lab 3 / Resilience / 30 minutes</div>
+      <h2 id="lab-3-heading">Backend capacity changes.<br>The client endpoint does not.</h2>
+      <div class="flow route-flow">
+        <div><h3>Application</h3><p>Same gateway URL</p></div>
+        <div><h3>AI gateway</h3><p>Backend pool + routing strategy + circuit breaker</p></div>
+        <div><h3>Deployments</h3><p>Primary capacity<br>Secondary / alternate capacity</p></div>
+      </div>
+      <p class="sequence">Create two backends &rarr; build a pool &rarr; route the API &rarr; simulate a failure &rarr; inspect recovery</p>
+      <p class="takeaway">Design decision: round-robin, weighted or priority-based routing?</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Test only in a noncritical environment. Verify the chosen tier's pool and circuit-breaker support. Consider retry safety, data residency, remaining capacity and what happens when all backends fail. Success means observed behaviour matches the intended strategy, not a promise of zero downtime.</aside>
+    </section>
+
+    <section class="slide" id="lab-4" aria-labelledby="lab-4-heading" tabindex="-1">
+      <div class="eyebrow">Lab 4 / Optimise / 25 minutes</div>
+      <h2 id="lab-4-heading">Avoid paying for<br>the same intent twice.</h2>
+      <div class="grid grid-3">
+        <article class="card"><span class="number">Lookup</span><h3>Prompt + similarity</h3><p>Look for an appropriate cached response using embeddings.</p></article>
+        <article class="card accent-card"><span class="number">Hit</span><h3>Return cached response</h3><p>Avoid another model call when reuse is safe.</p></article>
+        <article class="card"><span class="number">Miss</span><h3>Call model + store</h3><p>Generate a response and cache it where appropriate.</p></article>
+      </div>
+      <p class="sequence">Baseline similar prompts &rarr; configure lookup + store &rarr; compare latency and backend calls</p>
+      <p class="callout warning">Similarity is not correctness. Discuss threshold, TTL and partitioning; cached results can be stale, unsafe or wrong for another context.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Choose repeatable, nonsensitive prompts. Compare quality as well as performance. Do not reuse sensitive responses across consumer or access boundaries. Verify cache support and its data location for the chosen tier.</aside>
+    </section>
+
+    <section class="slide" id="lab-5" aria-labelledby="lab-5-heading" tabindex="-1">
+      <div class="eyebrow">Lab 5 / Observe / 25 minutes</div>
+      <h2 id="lab-5-heading">Make consumption visible.<br>Then make decisions.</h2>
+      <div class="grid grid-3">
+        <article class="card"><span class="number">Measure</span><h3>Tokens + performance</h3><p>Prompt, completion and total tokens. Latency and request outcomes.</p></article>
+        <article class="card"><span class="number">Attribute</span><h3>Workload accountability</h3><p>Application, environment and workload dimensions.</p></article>
+        <article class="card accent-card"><span class="number">Act</span><h3>Evidence-led policy</h3><p>Adjust quotas, architecture and cache policy based on observed behaviour.</p></article>
+      </div>
+      <p class="sequence">Measure &rarr; understand &rarr; define policy &rarr; enforce &rarr; measure again</p>
+      <p class="callout warning">Review logging before capturing traffic. Prompts, responses and tool payloads may contain sensitive information.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Configure a supported telemetry destination. Generate successful and rejected requests, then explain who consumed capacity and which control should change. Telemetry support and token accounting vary by integration.</aside>
+    </section>
+
+    <section class="slide" id="lab-6" aria-labelledby="lab-6-heading" tabindex="-1">
+      <div class="eyebrow">Lab 6 / Govern tools / Extension</div>
+      <h2 id="lab-6-heading">Give agents approved tools.<br>Not unrestricted APIs.</h2>
+      <ol class="tasks large-tasks"><li><strong>Choose a managed REST API.</strong> Select safe operations for tool exposure.</li><li><strong>Create the MCP server.</strong> Expose only the approved operations where supported.</li><li><strong>Connect an MCP client.</strong> List tools and invoke one through the governed endpoint.</li><li><strong>Inspect telemetry.</strong> Review tool-call traffic and payload sensitivity.</li></ol>
+      <p class="takeaway">Success: controlled access, a deliberate tool inventory, and clear ownership.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> MCP means Model Context Protocol. Tool approval does not replace per-operation authorisation. Discuss who approves tools, manages changes and owns retirement. Verify current MCP support before the exercise.</aside>
+    </section>
+
+    <section class="slide" id="pilot-guardrails" aria-labelledby="guardrails-heading" tabindex="-1">
+      <div class="eyebrow">Preview guardrails / Decision point</div>
+      <h2 id="guardrails-heading">Explore capabilities.<br>Do not promise production readiness.</h2>
+      <div class="grid grid-3">
+        <article class="card"><h3>Preview status</h3><p>Features, APIs, limits and pricing can change.</p></article>
+        <article class="card"><h3>Service guarantees</h3><p>Verify SLA terms; do not assume preview has production guarantees.</p></article>
+        <article class="card"><h3>Regional availability</h3><p>Check current support for your tier and target region.</p></article>
+        <article class="card"><h3>Data residency</h3><p>Assess the full model, gateway, cache and telemetry path.</p></article>
+        <article class="card"><h3>Networking</h3><p>Verify inbound private access and outbound network integration.</p></article>
+        <article class="card"><h3>Pilot posture</h3><p>Start with a noncritical workload and a rollback plan.</p></article>
+      </div>
+      <p class="source"><a href="https://learn.microsoft.com/azure/api-management/ai-gateway-overview" target="_blank" rel="noreferrer">Verify current capabilities in Microsoft documentation &nearr;</a></p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> The source workshop discusses preview capabilities. Do not treat historical region lists or networking statements as current commitments. Verify current official documentation and commercial terms before adoption.</aside>
+    </section>
+
+    <section class="slide" id="decisions" aria-labelledby="decisions-heading" tabindex="-1">
+      <div class="eyebrow">Group exercise / Decision canvas</div>
+      <h2 id="decisions-heading">Turn the labs into<br>operating-model choices.</h2>
+      <div class="grid grid-3">
+        <article class="card"><h3>Identity</h3><p>What identifies a consumer: application, user, workload or environment?</p></article>
+        <article class="card"><h3>Consumption</h3><p>Where should token and request limits apply?</p></article>
+        <article class="card"><h3>Capacity</h3><p>What happens when the preferred deployment cannot respond?</p></article>
+        <article class="card"><h3>Accountability</h3><p>Which dimensions support useful showback or chargeback?</p></article>
+        <article class="card"><h3>Tools</h3><p>Who approves MCP tools and owns their lifecycle?</p></article>
+        <article class="card"><h3>Pilot</h3><p>Which noncritical workload should go first?</p></article>
+      </div>
+      <p class="takeaway">Output: a prioritised pilot backlog with owners, success measures and open decisions.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Capture choices in your own approved workspace, not in the public website. Keep customer names and sensitive details out of public examples. Assign one owner and a measurable success criterion to each pilot action.</aside>
+    </section>
+
+    <section class="slide title-slide closing-slide" id="next-steps" aria-labelledby="closing-heading" tabindex="-1">
+      <div class="eyebrow">Questions + discussion</div>
+      <h2 id="closing-heading">The gateway is not<br>the destination.<br><span>It is the operating boundary.</span></h2>
+      <p class="subtitle">Centralise &rarr; Control &rarr; Resilience<br>Optimise &rarr; Observe &rarr; Govern</p>
+      <p class="takeaway">Next: select one pilot workload and define the minimum governance baseline.</p>
+      <aside class="speaker-notes" hidden><strong>Speaker notes:</strong> Return to the audience's top operational problem. Agree on the smallest safe pilot, owner, success measures and rollback conditions. Use Home to return to the opening slide.</aside>
     </section>
   </main>
-
-  <footer class="wrap">
-    <span>© 2026 Marta Santos</span>
-    <span>Built for sharing ideas and work in progress.</span>
+  <footer class="controls" aria-label="Presentation controls" hidden>
+    <div class="control-group">
+      <button type="button" id="previous" aria-label="Previous slide">&larr;</button>
+      <label class="sr-only" for="slide-picker">Jump to slide</label>
+      <select id="slide-picker"></select>
+      <button type="button" id="next" aria-label="Next slide">&rarr;</button>
+    </div>
+    <p id="slide-status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <div class="control-group"><button type="button" id="notes-toggle" aria-pressed="false" title="Speaker notes (N)">Notes</button><button type="button" id="fullscreen" aria-pressed="false" title="Fullscreen (F)">Fullscreen</button></div>
+    <progress id="slide-progress" value="1" max="16" aria-label="Slide progress"></progress>
   </footer>
+  <p id="presentation-error" role="alert" hidden></p>
 </body>
 </html>
