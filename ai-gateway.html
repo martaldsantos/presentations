@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#f7f7f5">
   <meta name="description" content="AI Gateway in Practice: a customer-neutral web presentation on governed model access, consumption controls, resilience, caching, observability and MCP tools.">
   <title>AI Gateway in Practice | Marta Santos</title>
-  <link rel="stylesheet" href="assets/ai-gateway.css?v=self-paced-20261009">
-  <script src="assets/ai-gateway.js?v=briefing-20261009" defer></script>
+  <link rel="stylesheet" href="assets/ai-gateway.css?v=controls-blue-20261009">
+  <script src="assets/ai-gateway.js?v=dynamic-slide-title-20261009" defer></script>
 </head>
 <body>
   <a class="skip" href="#deck">Skip to presentation</a>
@@ -424,8 +424,7 @@ Invoke-RestMethod -Method Post `
   <footer class="controls" aria-label="Presentation controls" hidden>
     <div class="control-group">
       <button type="button" id="previous" aria-label="Previous slide">&larr;</button>
-      <label class="sr-only" for="slide-picker">Jump to slide</label>
-      <select id="slide-picker"></select>
+      <span class="current-slide-title" id="current-slide-title" aria-hidden="true"></span>
       <button type="button" id="next" aria-label="Next slide">&rarr;</button>
     </div>
     <p id="slide-status" role="status" aria-live="polite" aria-atomic="true"></p>

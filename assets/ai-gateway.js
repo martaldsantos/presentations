@@ -1,7 +1,6 @@
 "use strict";
 
 const slides = Array.from(document.querySelectorAll(".slide"));
-const picker = document.getElementById("slide-picker");
 const previous = document.getElementById("previous");
 const next = document.getElementById("next");
 const notesToggle = document.getElementById("notes-toggle");
@@ -24,13 +23,6 @@ function slideTitle(slide) {
   return heading.textContent.replace(/\s+/g, " ").trim();
 }
 
-slides.forEach((slide, index) => {
-  const option = document.createElement("option");
-  option.value = String(index);
-  option.textContent = `${index + 1}. ${slideTitle(slide)}`;
-  picker.append(option);
-});
-
 function render(index, focusSlide = false) {
   current = Math.max(0, Math.min(index, slides.length - 1));
   const focusedSlide = document.activeElement.closest(".slide");
@@ -39,9 +31,9 @@ function render(index, focusSlide = false) {
     slide.classList.toggle("active", slideIndex === current);
     slide.querySelector(".speaker-notes").hidden = !showNotes;
   });
-  picker.value = String(current);
   previous.disabled = current === 0;
   next.disabled = current === slides.length - 1;
+  document.getElementById("current-slide-title").textContent = slideTitle(slides[current]);
   document.getElementById("slide-status").textContent = `${current + 1} / ${slides.length}`;
   const progress = document.getElementById("slide-progress");
   progress.max = slides.length;
@@ -93,7 +85,6 @@ async function toggleFullscreen() {
 
 previous.addEventListener("click", () => goTo(current - 1));
 next.addEventListener("click", () => goTo(current + 1));
-picker.addEventListener("change", () => goTo(Number(picker.value)));
 notesToggle.addEventListener("click", toggleNotes);
 fullscreen.addEventListener("click", toggleFullscreen);
 fullscreen.hidden = !document.fullscreenEnabled;
