@@ -30,7 +30,7 @@ GitHub Pages is public. Only commit materials approved for public sharing, with 
 
 1. Create customer-neutral HTML content in a descriptive folder, such as `presentations/my-talk/`. Adapt approved source material into web content; do not commit customer source decks.
 2. Use `ai-gateway.html` as an example of a slide-style web presentation with a 30-minute briefing, live deployment instructions, PoC checks and speaker notes. Its styles and navigation live in `assets/ai-gateway.css` and `assets/ai-gateway.js`.
-3. In `index.html`, duplicate the `<article class="presentation">` inside `.collection`. Update its title, description, tags, date and links. Give its heading a unique ID and use the same ID in `aria-labelledby`.
+3. In `index.html`, duplicate the `<article class="presentation">` inside `.collection`. Update its title, description, topics, session details and links. Give its heading a unique ID and use the same ID in `aria-labelledby`. The homepage uses the same editorial palette and typography as the deck, with styles in `assets/library.css`; update its version parameter in `index.html` when changing that stylesheet.
 4. Use relative links (not paths starting with `/`) so they work under the `/presentations/` GitHub Pages URL. Encode spaces in URLs as `%20`.
 5. Preview locally, commit the new files and push to `main`.
 

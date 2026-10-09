@@ -3,78 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f1f3ee">
+  <meta name="theme-color" content="#f7f7f5">
   <meta name="description" content="Interactive presentations and hands-on workshops by Marta Santos. Explore ideas, practical labs and architecture decisions.">
   <title>Presentations | Marta Santos</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --paper: #f1f3ee;
-      --ink: #172522;
-      --muted: #596660;
-      --line: #cbd2cb;
-      --green: #c9f36b;
-      --deep: #174e48;
-      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-      color: var(--ink);
-      background: var(--paper);
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; background-image: radial-gradient(#17252212 0.7px, transparent 0.7px); background-size: 9px 9px; }
-    a { color: inherit; text-underline-offset: 4px; }
-    a:focus-visible { outline: 3px solid var(--deep); outline-offset: 5px; }
-    .wrap { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
-    .skip { position: absolute; top: -100px; left: 24px; padding: 12px; background: var(--green); z-index: 2; }
-    .skip:focus { top: 12px; }
-    header { min-height: 84px; display: flex; justify-content: space-between; align-items: center; gap: 24px; border-bottom: 1px solid var(--line); }
-    .wordmark { display: flex; gap: 12px; align-items: center; font-size: 14px; font-weight: 700; text-decoration: none; }
-    .mark { display: grid; place-items: center; width: 36px; height: 36px; background: var(--green); font-family: monospace; }
-    nav { display: flex; gap: 24px; font-size: 13px; }
-    .hero { padding-block: 80px 64px; max-width: 870px; }
-    .eyebrow, .label { font-family: monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
-    .eyebrow { color: var(--deep); display: flex; gap: 12px; align-items: center; }
-    .eyebrow::before { content: ""; width: 24px; height: 3px; background: #f16c51; }
-    h1 { margin: 24px 0; font-family: Georgia, serif; font-weight: 400; font-size: clamp(48px, 7vw, 86px); line-height: 1.04; letter-spacing: -0.04em; }
-    h1 span { color: var(--deep); }
-    .intro { max-width: 610px; color: var(--muted); font-size: 19px; line-height: 1.7; }
-    .section-head { padding-block: 24px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 20px; }
-    h2 { margin: 0; font-family: Georgia, serif; font-size: 32px; font-weight: 400; }
-    .section-head .label { color: var(--muted); }
-    .collection { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr)); gap: 24px; }
-    .presentation { max-width: 560px; border: 1px solid var(--line); background: #fafbf7; }
-    .cover { min-height: 240px; position: relative; display: flex; flex-direction: column; justify-content: space-between; padding: 28px; background: var(--deep); color: white; overflow: hidden; }
-    .cover::after { content: "AI"; position: absolute; right: 16px; bottom: -28px; font: 180px Georgia, serif; color: #ffffff0d; pointer-events: none; }
-    .cover-title { position: relative; z-index: 1; max-width: 330px; font: 42px/1.05 Georgia, serif; }
-    .cover-title span { color: var(--green); }
-    .cover .label { color: #d8e6da; }
-    .details { padding: 28px; }
-    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-    .tag { border: 1px solid var(--line); padding: 5px 9px; font-size: 11px; color: var(--deep); }
-    h3 { margin: 0 0 12px; font-size: 23px; }
-    h3 a { text-decoration: none; }
-    h3 a:hover { text-decoration: underline; }
-    .description { margin: 0; color: var(--muted); font-size: 15px; line-height: 1.7; }
-    .meta { margin: 20px 0; color: var(--muted); font-size: 12px; }
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
-    .action { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 12px 18px; background: var(--ink); color: white; border: 1px solid var(--ink); font-size: 13px; font-weight: 600; text-decoration: none; }
-    .action:hover { background: var(--deep); }
-    .action.secondary { background: transparent; color: var(--ink); }
-    .action.secondary:hover { background: var(--green); }
-    .about { margin-block: 64px; padding-block: 32px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 2fr; gap: 32px; }
-    .about p { max-width: 610px; margin: 0; font-size: 16px; line-height: 1.8; color: var(--muted); }
-    footer { display: flex; justify-content: space-between; gap: 20px; padding-block: 24px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; }
-    @media (max-width: 600px) {
-      .wrap { width: calc(100% - 32px); }
-      header { min-height: 72px; flex-wrap: wrap; padding-block: 16px; gap: 16px; }
-      nav { gap: 18px; }
-      .hero { padding-block: 48px 40px; }
-      .intro { font-size: 17px; }
-      .section-head { align-items: start; flex-direction: column; gap: 10px; }
-      .cover, .details { padding: 24px; }
-      .about { grid-template-columns: 1fr; gap: 20px; margin-block: 48px; }
-      footer { flex-direction: column; gap: 10px; }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/library.css?v=editorial-20261009">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -84,28 +16,24 @@
   </header>
   <main id="main" class="wrap">
     <section class="hero" aria-labelledby="title">
-      <div class="eyebrow">Talks, ideas &amp; hands-on workshops</div>
+      <p class="eyebrow">Talks, ideas &amp; hands-on workshops</p>
       <h1 id="title">Ideas worth sharing.<br><span>All in one place.</span></h1>
       <p class="intro">A home for ideas and hands-on learning. Explore interactive sessions, work through practical labs and turn architecture concepts into decisions.</p>
-      <a class="action" href="#presentations">Explore presentations &darr;</a>
+      <a class="text-link" href="#presentations">Explore the collection &darr;</a>
     </section>
     <section id="presentations" aria-labelledby="collection-title">
-      <div class="section-head"><h2 id="collection-title">The collection</h2><span class="label">Interactive learning experiences</span></div>
+      <div class="section-head"><h2 id="collection-title">The collection</h2><p class="section-note">Interactive learning experiences</p></div>
       <div class="collection">
         <article class="presentation" aria-labelledby="gateway-title">
-          <div class="cover" aria-hidden="true">
-            <span class="label">Featured / Hands-on workshop</span>
-            <div class="cover-title">AI Gateway<br><span>in Practice</span></div>
-            <span class="label">Azure API Management / AI governance</span>
+          <div class="presentation-heading">
+            <p class="eyebrow">Featured / Briefing + live PoC</p>
+            <h3 id="gateway-title"><a href="ai-gateway.html">AI Gateway<br><span>in Practice</span></a></h3>
+            <p class="topics">AI &middot; Azure &middot; API Management</p>
           </div>
-          <div class="details">
-            <div class="tags"><span class="tag">AI</span><span class="tag">Azure</span><span class="tag">API Management</span></div>
-            <h3 id="gateway-title"><a href="ai-gateway.html">AI Gateway in Practice</a></h3>
+          <div class="presentation-details">
             <p class="description">Compare API Management with the dedicated AI Gateway tier in a 30-minute briefing. Then deploy the tier and validate model access, policies, telemetry and approved MCP tools in a hands-on PoC.</p>
             <p class="meta">30-minute presentation &middot; Live deployment + PoC</p>
-            <div class="actions">
-              <a class="action" href="ai-gateway.html">View presentation &rarr;</a>
-            </div>
+            <a class="text-link" href="ai-gateway.html">View presentation &rarr;</a>
           </div>
         </article>
       </div>
